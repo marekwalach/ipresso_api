@@ -1,7 +1,10 @@
 <?php
 
-use iPresso\Response;
+
+use iPresso\Activity;
+use iPresso\Campaign;
 use iPresso\Contact;
+use iPresso\Response;
 
 class iPresso
 {
@@ -157,7 +160,7 @@ class iPresso
     {
         switch ($this->request_type) {
             case self::REQUEST_METHOD_DELETE:
-                curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, 'DELETE');
+                curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, self::REQUEST_METHOD_DELETE);
                 break;
             case self::REQUEST_METHOD_POST:
                 curl_setopt($this->curlHandler, CURLOPT_POST, true);
@@ -233,7 +236,11 @@ class iPresso
         curl_setopt($this->curlHandler, CURLOPT_COOKIE, 'XDEBUG_SESSION=1');
     }
 
-    public function getAttributeDefinitions()
+    /**
+     * Get available attributes
+     * @return bool|mixed
+     */
+    public function getAvailableAttributes()
     {
         return $this
             ->setRequestPath('attribute')
@@ -241,17 +248,43 @@ class iPresso
             ->request();
     }
 
-    public function sendCampaign($idCampaign, $idContact)
+    /**
+     * Send intentable direct marketing campaign
+     * @param $idCampaign
+     * @param Campaign $campaign
+     * @return bool|mixed
+     */
+    public function sendCampaign($idCampaign, Campaign $campaign)
     {
-        $data['contactId'][] = $idContact;
         return $this
             ->setRequestPath('campaign/' . $idCampaign . '/send')
             ->setRequestType(iPresso::REQUEST_METHOD_POST)
-            ->setPostData($data)
+            ->setPostData($campaign->getCampaign())
             ->request();
     }
 
-    public function addTag($idContact, $tagString)
+    /**
+     * Add new activity
+     * @param Activity $activity
+     * @return bool|mixed
+     * @throws Exception
+     */
+    public function addActivity(Activity $activity)
+    {
+        return $this
+            ->setRequestPath('activity')
+            ->setRequestType(iPresso::REQUEST_METHOD_POST)
+            ->setPostData($activity->getActivity())
+            ->request();
+    }
+
+    /**
+     * Adding tags to contacts with a given ID
+     * @param $idContact
+     * @param $tagString
+     * @return bool|mixed
+     */
+    public function addTagToContact($idContact, $tagString)
     {
         $data['tag'] = [$tagString];
         return $this
