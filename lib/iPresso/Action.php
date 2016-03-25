@@ -2,7 +2,7 @@
 
 namespace iPresso;
 
-class Activity
+class Action
 {
     const VAR_KEY = 'key';
     const VAR_NAME = 'name';
@@ -10,14 +10,14 @@ class Activity
     const VAR_TYPE = 'type';
 
     /**
-     * ACTIVITY TYPES
+     * ACTION TYPES
      */
     const TYPE_DECIMAL = 'decimal';
     const TYPE_DICTIONARY = 'dictionary';
     const TYPE_INTEGER = 'integer';
     const TYPE_STRING = 'string';
 
-    public $activity;
+    public $action;
     private $key;
     private $name;
     private $parameter = [];
@@ -39,7 +39,7 @@ class Activity
 
     /**
      * @param array $parameter
-     * @return Activity
+     * @return Action
      */
     public function setParameter($parameter)
     {
@@ -57,7 +57,7 @@ class Activity
 
     /**
      * @param mixed $key
-     * @return Activity
+     * @return Action
      */
     public function setKey($key)
     {
@@ -75,7 +75,7 @@ class Activity
 
     /**
      * @param mixed $name
-     * @return Activity
+     * @return Action
      */
     public function setName($name)
     {
@@ -113,21 +113,21 @@ class Activity
      * @return mixed
      * @throws \Exception
      */
-    public function getActivity()
+    public function getAction()
     {
         if (empty($this->name))
-            throw new \Exception('Wrong activity name.');
+            throw new \Exception('Wrong action name.');
 
-        $this->activity[self::VAR_NAME] = $this->name;
+        $this->action[self::VAR_NAME] = $this->name;
 
         if (empty($this->key))
-            throw new \Exception('Wrong activity key.');
+            throw new \Exception('Wrong action key.');
 
-        $this->activity[self::VAR_KEY] = $this->key;
+        $this->action[self::VAR_KEY] = $this->key;
 
         if (!empty($this->parameter))
-            $this->activity[self::VAR_PARAMETER] = $this->parameter;
+            $this->action[self::VAR_PARAMETER] = $this->parameter;
 
-        return $this->activity;
+        return $this->action;
     }
 }

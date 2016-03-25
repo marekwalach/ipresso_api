@@ -1,8 +1,11 @@
 <?php
 
+include 'iPresso/Response.php';
 
 use iPresso\Activity;
+use iPresso\Action;
 use iPresso\Agreement;
+use iPresso\Attribute;
 use iPresso\Campaign;
 use iPresso\Contact;
 use iPresso\Response;
@@ -135,22 +138,22 @@ class iPresso
 
 
     /**
-     * Use to make GET|POST|PUT request
+     * @return bool|Response
      */
     public function request()
     {
         $this->_type();
         $this->_requestHeaders();
-        $ret = $this->_exec($this->url . $this->request_path);
-        if (isset($ret->code)) {
-            switch ($ret->code) {
-                case 403:
-                    if (!isset($ret->errorCode) && $this->iteration < 5 && $this->getToken()) {
+        $response = (new Response($this->_exec($this->url . $this->request_path)));
+        if (isset($response->code)) {
+            switch ($response->code) {
+                case Response::STATUS_FORBIDDEN:
+                    if (!isset($response->error) && $this->iteration < 5 && $this->getToken()) {
                         $this->iteration++;
                         return $this->request();
                     }
                 default:
-                    return $ret;
+                    return $response;
                     break;
             }
         }
@@ -188,14 +191,18 @@ class iPresso
     {
         $this->_headers();
         $this->_auth();
-        $ret = $this->_exec($this->url . 'auth/' . $this->customerKey);
-        if (isset($ret->code) && 200 == $ret->code) {
-            $this->token = $ret->data;
+        $response = (new Response($this->_exec($this->url . 'auth/' . $this->customerKey)));
+        if (isset($response->code) && 200 == $response->code) {
+            $this->token = $response->data;
             return true;
         }
         return false;
     }
 
+    /**
+     * @param string $url
+     * @return mixed
+     */
     private function _exec($url)
     {
         curl_setopt($this->curlHandler, CURLOPT_URL, $url);
@@ -236,6 +243,7 @@ class iPresso
         curl_setopt($this->curlHandler, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($this->curlHandler, CURLOPT_COOKIE, 'XDEBUG_SESSION=1');
     }
+
 
     /**
      * Get available attributes
@@ -280,9 +288,25 @@ class iPresso
     }
 
     /**
+     * Add new actions
+     * @param Action $action
+     * @return bool|Response
+     * @throws Exception
+     */
+    public function addAction(Action $action)
+    {
+        return $this
+            ->setRequestPath('action')
+            ->setRequestType(iPresso::REQUEST_METHOD_POST)
+            ->setPostData($action->getAction())
+            ->request();
+    }
+
+    /**
      * Add new agreements
      * @param Agreement $agreement
      * @return bool|mixed
+     * @throws Exception
      */
     public function addAgreement(Agreement $agreement)
     {
@@ -290,6 +314,21 @@ class iPresso
             ->setRequestPath('agreement')
             ->setRequestType(iPresso::REQUEST_METHOD_POST)
             ->setPostData($agreement->getAgreement())
+            ->request();
+    }
+
+    /**
+     * Add new attributes
+     * @param Attribute $attribute
+     * @return bool|mixed
+     * @throws Exception
+     */
+    public function addAttribute(Attribute $attribute)
+    {
+        return $this
+            ->setRequestPath('attribute')
+            ->setRequestType(iPresso::REQUEST_METHOD_POST)
+            ->setPostData($attribute->getAttribute())
             ->request();
     }
 
@@ -307,6 +346,35 @@ class iPresso
             ->setRequestType(iPresso::REQUEST_METHOD_POST)
             ->setPostData($data)
             ->request();
+    }
+
+    public static function dump($die, $variable, $desc = false, $noHtml = false)
+    {
+        if (is_string($variable)) {
+            $variable = str_replace("<_new_line_>", "<BR>", $variable);
+        }
+
+        if ($noHtml) {
+            echo "\n";
+        } else {
+            echo "<pre>";
+        }
+
+        if ($desc) {
+            echo $desc . ": ";
+        }
+
+        print_r($variable);
+
+        if ($noHtml) {
+            echo "";
+        } else {
+            echo "</pre>";
+        }
+
+        if ($die) {
+            die();
+        }
     }
 
 }
