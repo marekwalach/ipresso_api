@@ -115,21 +115,24 @@ class Activity
         }
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     public function getActivity()
     {
-        if (empty($this->name)) {
+        if (empty($this->name))
             throw new \Exception('Wrong activity name.');
-        }
+
         $this->activity[self::VAR_NAME] = $this->name;
 
-        if (empty($this->key)) {
+        if (empty($this->key))
             throw new \Exception('Wrong activity key.');
-        }
+
         $this->activity[self::VAR_KEY] = $this->key;
 
-        if (!empty($this->parameter)) {
+        if (!empty($this->parameter))
             $this->activity[self::VAR_PARAMETER] = $this->parameter;
-        }
 
         return $this->activity;
     }

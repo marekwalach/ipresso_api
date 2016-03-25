@@ -2,6 +2,7 @@
 
 
 use iPresso\Activity;
+use iPresso\Agreement;
 use iPresso\Campaign;
 use iPresso\Contact;
 use iPresso\Response;
@@ -275,6 +276,20 @@ class iPresso
             ->setRequestPath('activity')
             ->setRequestType(iPresso::REQUEST_METHOD_POST)
             ->setPostData($activity->getActivity())
+            ->request();
+    }
+
+    /**
+     * Add new agreements
+     * @param Agreement $agreement
+     * @return bool|mixed
+     */
+    public function addAgreement(Agreement $agreement)
+    {
+        return $this
+            ->setRequestPath('agreement')
+            ->setRequestType(iPresso::REQUEST_METHOD_POST)
+            ->setPostData($agreement->getAgreement())
             ->request();
     }
 
