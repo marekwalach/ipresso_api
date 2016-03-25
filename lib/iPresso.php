@@ -246,57 +246,6 @@ class iPresso
     }
 
     /**
-     * CONTACT
-     */
-
-    /**
-     * Adding new contact
-     * @param Contact $contact
-     * @return bool|Response
-     * @throws Exception
-     */
-    public function addContact(Contact $contact)
-    {
-        $post_data = [];
-        $post_data['contact'][] = $contact->getContact();
-        return $this
-            ->setRequestPath('contact')
-            ->setRequestType(iPresso::REQUEST_METHOD_POST)
-            ->setPostData($post_data)
-            ->request();
-    }
-
-    /**
-     * Edition of a contact with a given ID number
-     * @param integer $id_contact
-     * @param Contact $contact
-     * @return bool|Response
-     * @throws Exception
-     */
-    public function editContact($id_contact, Contact $contact)
-    {
-        return $this
-            ->setRequestPath('contact/' . $id_contact)
-            ->setRequestType(iPresso::REQUEST_METHOD_PUT)
-            ->setPostData(['contact' => $contact->getContact()])
-            ->request();
-    }
-
-    /**
-     * Delete contact
-     * @param integer $id_contact
-     * @return bool|Response
-     */
-    public function deleteContact($id_contact)
-    {
-        return $this
-            ->setRequestPath('contact/' . $id_contact)
-            ->setRequestType(iPresso::REQUEST_METHOD_DELETE)
-            ->request();
-    }
-
-
-    /**
      * ATTRIBUTES
      */
 

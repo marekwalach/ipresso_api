@@ -1,6 +1,6 @@
 <?php
 
-namespace iPresso;
+namespace Model;
 
 class Attribute
 {
