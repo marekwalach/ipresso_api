@@ -37,7 +37,7 @@ class AttributeService
      * Get available attributes
      * @return bool|mixed
      */
-    public function getAll()
+    public function get()
     {
         return $this
             ->service

@@ -7,6 +7,7 @@ use iPresso\Service\AttributeService;
 use iPresso\Service\CategoryService;
 use iPresso\Service\CampaignService;
 use iPresso\Service\ContactService;
+use iPresso\Service\SearchService;
 use iPresso\Service\Service;
 
 class iPresso
@@ -18,6 +19,7 @@ class iPresso
     public $campaign;
     public $category;
     public $contact;
+    public $search;
     private $service;
 
     public function __construct()
@@ -30,6 +32,7 @@ class iPresso
         $this->category = new CategoryService($this->service);
         $this->campaign = new CampaignService($this->service);
         $this->contact = new ContactService($this->service);
+        $this->search = new SearchService($this->service);
     }
 
     /**

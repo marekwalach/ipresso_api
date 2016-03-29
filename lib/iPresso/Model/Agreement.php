@@ -40,7 +40,7 @@ class Agreement
      * Parameter `DM_VISIBLE_STATUS` defines whether agreement allows sending message: 0 if it doesn’t, 1 if it does.
      * @var int
      */
-    private $dm_status = 1;
+    private $dm_status = self::DIRECT_MARKETING_VISIBLE;
 
     /**
      * @return mixed
@@ -107,12 +107,10 @@ class Agreement
 
         $this->agreement[self::VAR_NAME] = $this->name;
 
-        if (empty($this->description))
-            throw new \Exception('Wrong agreement description.');
+        if (!empty($this->description))
+            $this->agreement[self::VAR_DESCRIPTION] = $this->description;
 
-        $this->agreement[self::VAR_DESCRIPTION] = $this->description;
-
-        if (empty($this->dm_status) || !in_array($this->dm_status, self::$dm_status_types))
+        if (empty($this->dm_status) && !in_array($this->dm_status, self::$dm_status_types))
             throw new \Exception('Wrong direct marketing visible status.');
 
         $this->agreement[self::VAR_DM_STATUS] = $this->dm_status;

@@ -32,4 +32,17 @@ class ActionService
             ->setPostData($action->getAction())
             ->request();
     }
+
+    /**
+     * Get available actions
+     * @return bool|Response
+     */
+    public function get()
+    {
+        return $this
+            ->service
+            ->setRequestPath('action')
+            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->request();
+    }
 }

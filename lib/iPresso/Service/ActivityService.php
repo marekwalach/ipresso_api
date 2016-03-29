@@ -32,4 +32,17 @@ class ActivityService
             ->setPostData($activity->getActivity())
             ->request();
     }
+
+    /**
+     * Get available activities
+     * @return bool|Response
+     */
+    public function get()
+    {
+        return $this
+            ->service
+            ->setRequestPath('activity')
+            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->request();
+    }
 }
