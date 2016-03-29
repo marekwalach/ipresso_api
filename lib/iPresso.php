@@ -4,6 +4,7 @@ use iPresso\Service\ActionService;
 use iPresso\Service\ActivityService;
 use iPresso\Service\AgreementService;
 use iPresso\Service\AttributeService;
+use iPresso\Service\CategoryService;
 use iPresso\Service\CampaignService;
 use iPresso\Service\ContactService;
 use iPresso\Service\Service;
@@ -15,6 +16,7 @@ class iPresso
     public $agreement;
     public $attribute;
     public $campaign;
+    public $category;
     public $contact;
     private $service;
 
@@ -25,6 +27,7 @@ class iPresso
         $this->activity = new ActivityService($this->service);
         $this->agreement = new AgreementService($this->service);
         $this->attribute = new AttributeService($this->service);
+        $this->category = new CategoryService($this->service);
         $this->campaign = new CampaignService($this->service);
         $this->contact = new ContactService($this->service);
     }
