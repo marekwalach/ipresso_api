@@ -5,11 +5,19 @@ namespace iPresso\Model;
 class Agreement
 {
     const VAR_DESCRIPTION = 'description';
-    const VAR_NAME = 'name';
     const VAR_DM_STATUS = 'dmvisible';
+    const VAR_NAME = 'name';
 
     const DIRECT_MARKETING_VISIBLE = 1;
     const DIRECT_MARKETING_NON_VISIBLE = 0;
+
+    /**
+     * @var array
+     */
+    public static $dm_status_types = [
+        self::DIRECT_MARKETING_NON_VISIBLE,
+        self::DIRECT_MARKETING_VISIBLE
+    ];
 
     /**
      * @var array
@@ -104,7 +112,7 @@ class Agreement
 
         $this->agreement[self::VAR_DESCRIPTION] = $this->description;
 
-        if (empty($this->dm_status))
+        if (empty($this->dm_status) || !in_array($this->dm_status, self::$dm_status_types))
             throw new \Exception('Wrong direct marketing visible status.');
 
         $this->agreement[self::VAR_DM_STATUS] = $this->dm_status;
