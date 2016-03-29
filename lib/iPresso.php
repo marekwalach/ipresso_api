@@ -8,6 +8,8 @@ use iPresso\Service\CategoryService;
 use iPresso\Service\CampaignService;
 use iPresso\Service\ContactService;
 use iPresso\Service\SearchService;
+use iPresso\Service\SourceService;
+use iPresso\Service\WebsiteService;
 use iPresso\Service\Service;
 
 class iPresso
@@ -20,8 +22,13 @@ class iPresso
     public $category;
     public $contact;
     public $search;
+    public $source;
+    public $www;
     private $service;
 
+    /**
+     * iPresso constructor.
+     */
     public function __construct()
     {
         $this->service = new Service();
@@ -33,6 +40,8 @@ class iPresso
         $this->campaign = new CampaignService($this->service);
         $this->contact = new ContactService($this->service);
         $this->search = new SearchService($this->service);
+        $this->source = new SourceService($this->service);
+        $this->www = new WebsiteService($this->service);
     }
 
     /**
