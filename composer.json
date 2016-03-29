@@ -1,7 +1,7 @@
 {
   "name": "michalper/ipresso_api",
   "description": "Unofficial PHP library for iPresso API",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "http://apidoc.ipresso.pl/",
   "license": "MIT",
   "authors": [
@@ -30,7 +30,9 @@
       "iPresso": "lib/"
     },
     "psr-4": {
-      "iPresso\\": "iPresso/"
+      "iPresso\\": "iPresso/",
+      "Model\\": "iPresso/Model",
+      "Service\\": "iPresso/Service"
     }
   }
 }
