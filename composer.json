@@ -31,8 +31,8 @@
     },
     "psr-4": {
       "iPresso\\": "iPresso/",
-      "Model\\": "iPresso/Model",
-      "Service\\": "iPresso/Service"
+      "iPresso\\Model\\": "iPresso/Model/",
+      "iPresso\\Service\\": "iPresso/Service/"
     }
   }
 }

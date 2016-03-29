@@ -1,6 +1,6 @@
 <?php
 
-namespace Model;
+namespace iPresso\Model;
 
 class Campaign
 {

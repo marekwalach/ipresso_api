@@ -1,12 +1,12 @@
 <?php
 
-use Service\ActionService;
-use Service\ActivityService;
-use Service\AgreementService;
-use Service\AttributeService;
-use Service\CampaignService;
-use Service\ContactService;
-use Service\Service;
+use iPresso\Service\ActionService;
+use iPresso\Service\ActivityService;
+use iPresso\Service\AgreementService;
+use iPresso\Service\AttributeService;
+use iPresso\Service\CampaignService;
+use iPresso\Service\ContactService;
+use iPresso\Service\Service;
 
 class iPresso
 {
@@ -20,13 +20,13 @@ class iPresso
 
     public function __construct()
     {
-        $this->action = new ActionService();
-        $this->activity = new ActivityService();
-        $this->agreement = new AgreementService();
-        $this->attribute = new AttributeService();
-        $this->campaign = new CampaignService();
-        $this->contact = new ContactService();
         $this->service = new Service();
+        $this->action = new ActionService($this->service);
+        $this->activity = new ActivityService($this->service);
+        $this->agreement = new AgreementService($this->service);
+        $this->attribute = new AttributeService($this->service);
+        $this->campaign = new CampaignService($this->service);
+        $this->contact = new ContactService($this->service);
     }
 
     /**
@@ -76,6 +76,15 @@ class iPresso
     public function setUrl($url)
     {
         $this->service->setUrl($url);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function debug()
+    {
+        $this->service->debug();
         return $this;
     }
 

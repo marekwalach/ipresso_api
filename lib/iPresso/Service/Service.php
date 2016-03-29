@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace iPresso\Service;
 
 class Service
 {
@@ -24,6 +24,9 @@ class Service
     private $url;
     private $version = self::API_VER;
 
+    /**
+     * Service constructor.
+     */
     public function __construct()
     {
         $this->_curlInit();
@@ -128,12 +131,34 @@ class Service
         return $this;
     }
 
+    /**
+     * @throws \Exception
+     */
+    private function _check()
+    {
+        if (!$this->token)
+            throw new \Exception('Set token first.');
+
+        if (!$this->login)
+            throw new \Exception('Set login first.');
+
+        if (!$this->password)
+            throw new \Exception('Set password first.');
+
+        if (!$this->url)
+            throw new \Exception('Set url first.');
+
+        if (!$this->customerKey)
+            throw new \Exception('Set customerKey first.');
+    }
+
 
     /**
      * @return bool|Response
      */
     public function request()
     {
+        $this->_check();
         $this->_type();
         $this->_requestHeaders();
         $response = (new Response($this->_exec($this->url . $this->request_path)));
@@ -151,6 +176,7 @@ class Service
         }
         return false;
     }
+
 
     private function _type()
     {
@@ -178,6 +204,7 @@ class Service
 
     /**
      * Use to get session token
+     * @return bool
      */
     public function getToken()
     {
@@ -234,5 +261,34 @@ class Service
         curl_setopt($this->curlHandler, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($this->curlHandler, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($this->curlHandler, CURLOPT_COOKIE, 'XDEBUG_SESSION=1');
+    }
+
+    public static function dump($die, $variable, $desc = false, $noHtml = false)
+    {
+        if (is_string($variable)) {
+            $variable = str_replace("<_new_line_>", "<BR>", $variable);
+        }
+
+        if ($noHtml) {
+            echo "\n";
+        } else {
+            echo "<pre>";
+        }
+
+        if ($desc) {
+            echo $desc . ": ";
+        }
+
+        print_r($variable);
+
+        if ($noHtml) {
+            echo "";
+        } else {
+            echo "</pre>";
+        }
+
+        if ($die) {
+            die();
+        }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace iPresso\Service;
 
 class Response
 {

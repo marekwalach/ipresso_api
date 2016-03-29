@@ -1,11 +1,22 @@
 <?php
 
-namespace Service;
+namespace iPresso\Service;
 
-use Model\Contact;
+use iPresso\Model\Contact;
 
-class ContactService extends Service
+class ContactService
 {
+    private $service;
+
+    /**
+     * ContactService constructor.
+     * @param Service $service
+     */
+    public function __construct(Service $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Adding new contact
      * @param Contact $contact
@@ -17,6 +28,7 @@ class ContactService extends Service
         $post_data = [];
         $post_data['contact'][] = $contact->getContact();
         return $this
+            ->service
             ->setRequestPath('contact')
             ->setRequestType(Service::REQUEST_METHOD_POST)
             ->setPostData($post_data)
@@ -33,6 +45,7 @@ class ContactService extends Service
     public function edit($id_contact, Contact $contact)
     {
         return $this
+            ->service
             ->setRequestPath('contact/' . $id_contact)
             ->setRequestType(Service::REQUEST_METHOD_PUT)
             ->setPostData(['contact' => $contact->getContact()])
@@ -47,6 +60,7 @@ class ContactService extends Service
     public function delete($id_contact)
     {
         return $this
+            ->service
             ->setRequestPath('contact/' . $id_contact)
             ->setRequestType(Service::REQUEST_METHOD_DELETE)
             ->request();
@@ -60,6 +74,7 @@ class ContactService extends Service
     public function get($id_contact)
     {
         return $this
+            ->service
             ->setRequestPath('contact/' . $id_contact)
             ->setRequestType(Service::REQUEST_METHOD_GET)
             ->request();
@@ -75,6 +90,7 @@ class ContactService extends Service
     {
         $data['tag'] = [$tagString];
         return $this
+            ->service
             ->setRequestPath('contact/' . $idContact . '/tag')
             ->setRequestType(Service::REQUEST_METHOD_POST)
             ->setPostData($data)

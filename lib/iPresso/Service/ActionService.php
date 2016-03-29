@@ -1,11 +1,22 @@
 <?php
 
-namespace Service;
+namespace iPresso\Service;
 
-use Model\Action;
+use iPresso\Model\Action;
 
-class ActionService extends Service
+class ActionService
 {
+    private $service;
+
+    /**
+     * ActionService constructor.
+     * @param Service $service
+     */
+    public function __construct(Service $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Add new actions
      * @param Action $action
@@ -15,6 +26,7 @@ class ActionService extends Service
     public function addAction(Action $action)
     {
         return $this
+            ->service
             ->setRequestPath('action')
             ->setRequestType(Service::REQUEST_METHOD_POST)
             ->setPostData($action->getAction())
