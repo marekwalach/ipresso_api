@@ -101,6 +101,14 @@ class iPresso
     }
 
     /**
+     * @return bool|string
+     */
+    public function getToken()
+    {
+        return $this->service->getToken();
+    }
+
+    /**
      * @return $this
      */
     public function debug()

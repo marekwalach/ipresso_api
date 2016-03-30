@@ -132,11 +132,12 @@ class Service
     }
 
     /**
+     * @param bool $getToken
      * @throws \Exception
      */
-    private function _check()
+    private function _check($getToken = false)
     {
-        if (!$this->token)
+        if (!$this->token && !$getToken)
             throw new \Exception('Set token first.');
 
         if (!$this->login)
@@ -202,16 +203,17 @@ class Service
 
     /**
      * Use to get session token
-     * @return bool
+     * @return string|bool
      */
     public function getToken()
     {
+        $this->_check(true);
         $this->_headers();
         $this->_auth();
         $response = (new Response($this->_exec($this->url . 'auth/' . $this->customerKey)));
         if (isset($response->code) && 200 == $response->code) {
             $this->token = $response->data;
-            return true;
+            return $this->token;
         }
         return false;
     }
