@@ -166,7 +166,7 @@ class Service
         if (isset($response->code)) {
             switch ($response->code) {
                 case Response::STATUS_FORBIDDEN:
-                    if (!isset($response->error) && $this->iteration < 5 && $this->getToken()) {
+                    if (!isset($response->error_code) && $this->iteration < 5 && $this->getToken()) {
                         $this->iteration++;
                         return $this->request();
                     }
