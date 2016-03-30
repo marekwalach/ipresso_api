@@ -187,16 +187,14 @@ class Service
             case self::REQUEST_METHOD_POST:
                 curl_setopt($this->curlHandler, CURLOPT_POST, true);
                 curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $this->post_data);
+                curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, self::REQUEST_METHOD_POST);
                 break;
             case self::REQUEST_METHOD_PUT:
-                $fh = fopen('php://temp', 'rw');
-                fwrite($fh, $this->post_data);
-                rewind($fh);
-                curl_setopt($this->curlHandler, CURLOPT_INFILE, $fh);
-                curl_setopt($this->curlHandler, CURLOPT_INFILESIZE, strlen($this->post_data));
-                curl_setopt($this->curlHandler, CURLOPT_PUT, true);
+                curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, self::REQUEST_METHOD_PUT);
+                curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $this->post_data);
                 break;
             case self::REQUEST_METHOD_GET:
+                curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, self::REQUEST_METHOD_GET);
             default:
                 break;
         }

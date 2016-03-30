@@ -2,14 +2,14 @@
 
 namespace iPresso\Service;
 
-use iPresso\Model\Category;
+use iPresso\Model\Tag;
 
-class CategoryService
+class TagService
 {
     private $service;
 
     /**
-     * CategoryService constructor.
+     * TagService constructor.
      * @param Service $service
      */
     public function __construct(Service $service)
@@ -18,77 +18,78 @@ class CategoryService
     }
 
     /**
-     * Get category
-     * @param integer|bool $idCategory
+     * Get tags
+     * @param integer|bool $idTag
      * @return bool|Response
      */
-    public function get($idCategory = false)
+    public function get($idTag = false)
     {
-        if ($idCategory && is_numeric($idCategory))
-            $idCategory = '/' . $idCategory;
+        if ($idTag && is_numeric($idTag))
+            $idTag = '/' . $idTag;
 
         return $this
             ->service
-            ->setRequestPath('category' . $idCategory)
+            ->setRequestPath('tag' . $idTag)
             ->setRequestType(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
     /**
-     * Add new category
-     * @param Category $category
+     * Add new tag
+     * @param Tag $tag
      * @return bool|Response
      * @throws \Exception
      */
-    public function add(Category $category)
+    public function add(Tag $tag)
     {
+        $data['name'] = $tag;
         return $this
             ->service
-            ->setRequestPath('category')
+            ->setRequestPath('tag')
             ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($category->getCategory())
+            ->setPostData($tag->getTag())
             ->request();
     }
 
     /**
-     * Edit selected category
-     * @param integer $idCategory
-     * @param Category $category
+     * Edit selected tag
+     * @param integer $idTag
+     * @param Tag $tag
      * @return bool|Response
      * @throws \Exception
      */
-    public function edit($idCategory, Category $category)
+    public function edit($idTag, Tag $tag)
     {
         return $this
             ->service
-            ->setRequestPath('category/' . $idCategory)
+            ->setRequestPath('tag/' . $idTag)
             ->setRequestType(Service::REQUEST_METHOD_PUT)
-            ->setPostData(['category' => $category->getCategory()])
+            ->setPostData(['tag' => $tag->getTag()])
             ->request();
     }
 
     /**
-     * Delete category
-     * @param integer $idCategory
+     * Delete tag
+     * @param integer $idTag
      * @return bool|Response
      */
-    public function delete($idCategory)
+    public function delete($idTag)
     {
         return $this
             ->service
-            ->setRequestPath('category/' . $idCategory)
+            ->setRequestPath('tag/' . $idTag)
             ->setRequestType(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
 
     /**
-     * Add new contacts to categories
-     * @param integer $idCategory
+     * Add new contacts to a tag
+     * @param integer $idTag
      * @param array $contactIds
      * @return bool|Response
      * @throws \Exception
      */
-    public function addContact($idCategory, $contactIds)
+    public function addContact($idTag, $contactIds)
     {
         if (!is_array($contactIds) || empty($contactIds))
             throw new \Exception('Set idContacts array first.');
@@ -96,42 +97,43 @@ class CategoryService
         $data['contact'] = $contactIds;
         return $this
             ->service
-            ->setRequestPath('category/' . $idCategory . '/contact')
+            ->setRequestPath('tag/' . $idTag . '/contact')
             ->setRequestType(Service::REQUEST_METHOD_POST)
             ->setPostData($data)
             ->request();
     }
 
     /**
-     * Get all contacts in category
-     * @param integer $idCategory
+     * Get all contacts in tag
+     * @param integer $idTag
      * @param integer|bool $page
      * @return bool|Response
      */
-    public function getContact($idCategory, $page = false)
+    public function getContact($idTag, $page = false)
     {
         if ($page && is_numeric($page))
             $page = '?page=' . $page;
 
         return $this
             ->service
-            ->setRequestPath('category/' . $idCategory . '/contact' . $page)
+            ->setRequestPath('tag/' . $idTag . '/contact' . $page)
             ->setRequestType(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
     /**
-     * Delete contact in category
-     * @param integer $idCategory
+     * Delete contact in tag
+     * @param integer $idTag
      * @param integer $idContact
      * @return bool|Response
      */
-    public function deleteContact($idCategory, $idContact)
+    public function deleteContact($idTag, $idContact)
     {
         return $this
             ->service
-            ->setRequestPath('category/' . $idCategory . '/contact/' . $idContact)
+            ->setRequestPath('tag/' . $idTag . '/contact/' . $idContact)
             ->setRequestType(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
+
 }

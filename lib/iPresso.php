@@ -9,6 +9,8 @@ use iPresso\Service\CampaignService;
 use iPresso\Service\ContactService;
 use iPresso\Service\SearchService;
 use iPresso\Service\SourceService;
+use iPresso\Service\TagService;
+use iPresso\Service\TypeService;
 use iPresso\Service\WebsiteService;
 use iPresso\Service\Service;
 
@@ -23,6 +25,8 @@ class iPresso
     public $contact;
     public $search;
     public $source;
+    public $tag;
+    public $type;
     public $www;
     private $service;
 
@@ -41,6 +45,8 @@ class iPresso
         $this->contact = new ContactService($this->service);
         $this->search = new SearchService($this->service);
         $this->source = new SourceService($this->service);
+        $this->tag = new TagService($this->service);
+        $this->type = new TypeService($this->service);
         $this->www = new WebsiteService($this->service);
     }
 
