@@ -91,11 +91,16 @@ class iPresso
     }
 
     /**
-     * @param mixed $url
-     * @return iPresso
+     * @param string $url
+     * @return $this
+     * @throws Exception
      */
     public function setUrl($url)
     {
+        $address = parse_url($url);
+        if (!isset($address['scheme']) || $address['scheme'] != 'https')
+            throw new Exception('Set URL with https://');
+
         $this->service->setUrl($url);
         return $this;
     }
@@ -105,7 +110,7 @@ class iPresso
      */
     public function getToken()
     {
-        return $this->service->getToken();
+        return $this->service->getToken(true);
     }
 
     /**

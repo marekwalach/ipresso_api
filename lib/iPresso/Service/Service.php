@@ -203,14 +203,20 @@ class Service
 
     /**
      * Use to get session token
-     * @return string|bool
+     * @param bool $fullResponse
+     * @return bool|Response
+     * @throws \Exception
      */
-    public function getToken()
+    public function getToken($fullResponse = false)
     {
         $this->_check(true);
         $this->_headers();
         $this->_auth();
         $response = (new Response($this->_exec($this->url . 'auth/' . $this->customerKey)));
+
+        if ($fullResponse)
+            return $response;
+
         if (isset($response->code) && 200 == $response->code) {
             $this->token = $response->data;
             return $this->token;
