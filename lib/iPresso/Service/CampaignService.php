@@ -19,15 +19,20 @@ class CampaignService
 
     /**
      * Send intentable direct marketing campaign
-     * @param $idCampaign
+     * @param integer $idCampaign
      * @param Campaign $campaign
-     * @return bool|mixed
+     * @param bool $key
+     * @return bool|Response
+     * @throws \Exception
      */
-    public function send($idCampaign, Campaign $campaign)
+    public function send($idCampaign, Campaign $campaign, $key = false)
     {
+        if ($key)
+            $key = '?key=1';
+
         return $this
             ->service
-            ->setRequestPath('campaign/' . $idCampaign . '/send')
+            ->setRequestPath('campaign/' . $idCampaign . '/send' . $key)
             ->setRequestType(Service::REQUEST_METHOD_POST)
             ->setPostData($campaign->getCampaign())
             ->request();
