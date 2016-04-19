@@ -21,14 +21,21 @@ class ContactService
 
     /**
      * Adding new contact
-     * @param Contact $contact
+     * @param Contact|array $contact
      * @return bool|Response
      * @throws \Exception
      */
-    public function add(Contact $contact)
+    public function add($contact)
     {
         $post_data = [];
-        $post_data['contact'][] = $contact->getContact();
+
+        if (is_array($contact)) {
+            foreach ($contact as $c)
+                $post_data['contact'][] = $c->getContact();
+        } else {
+            $post_data['contact'][] = $contact->getContact();
+        }
+
         return $this
             ->service
             ->setRequestPath('contact')
