@@ -226,6 +226,9 @@ class Search
         if (!empty($this->name))
             $this->search[self::VAR_NAME] = $this->name;
 
+        if (!empty($this->email))
+            $this->search[self::VAR_EMAIL] = $this->email;
+
         if (!empty($this->phone))
             $this->search[self::VAR_PHONE] = $this->phone;
 

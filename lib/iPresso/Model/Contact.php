@@ -363,9 +363,6 @@ class Contact
      */
     public function getContact()
     {
-        if (empty($this->last_name) && empty($this->email) && empty($this->mobile) && empty($this->name))
-            throw new \Exception('Set required variable.');
-
         if (!empty($this->type))
             $this->contact[self::VAR_TYPE] = $this->type;
 
