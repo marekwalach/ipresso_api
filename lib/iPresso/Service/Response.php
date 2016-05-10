@@ -15,6 +15,11 @@ class Response
     const STATUS_CREATED = 201;
 
     /**
+     * Found
+     */
+    const STATUS_FOUND = 302;
+
+    /**
      * Bad request – the request was invalid or cannot be otherwise served
      */
     const STATUS_BAD_REQUEST = 400;
