@@ -21,6 +21,10 @@ class Service
     private $request_path;
     private $request_type = self::REQUEST_METHOD_GET;
     private $token;
+    /**
+     * @var callable
+     */
+    private $tokenCallBack;
     private $url;
     private $version = self::API_VER;
 
@@ -132,6 +136,25 @@ class Service
     }
 
     /**
+     * @return mixed
+     */
+    public function getTokenCallBack()
+    {
+        return $this->tokenCallBack;
+    }
+
+    /**
+     * @param mixed $tokenCallBack
+     * @return $this
+     */
+    public function setTokenCallBack($tokenCallBack)
+    {
+        $this->tokenCallBack = $tokenCallBack;
+        return $this;
+    }
+
+
+    /**
      * @param bool $getToken
      * @throws \Exception
      */
@@ -196,6 +219,7 @@ class Service
                 break;
             case self::REQUEST_METHOD_GET:
                 curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, self::REQUEST_METHOD_GET);
+                break;
             default:
                 break;
         }
@@ -218,6 +242,11 @@ class Service
             return $response;
 
         if (isset($response->code) && 200 == $response->code) {
+
+            if (!empty($this->tokenCallBack)) {
+                call_user_func($this->tokenCallBack, $response->data);
+            }
+
             $this->token = $response->data;
             return $this->token;
         }

@@ -106,6 +106,16 @@ class iPresso
     }
 
     /**
+     * @param callable $callBack
+     * @return $this
+     */
+    public function setTokenCallBack( $callBack)
+    {
+        $this->service->setTokenCallBack($callBack);
+        return $this;
+    }
+
+    /**
      * @return bool|string
      */
     public function getToken()
