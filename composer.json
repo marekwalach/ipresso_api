@@ -1,7 +1,6 @@
 {
   "name": "michalper/ipresso_api",
   "description": "Unofficial PHP library for iPresso API",
-  "version": "1.2.4",
   "homepage": "http://apidoc.ipresso.pl/",
   "license": "GPL-2.0",
   "authors": [
