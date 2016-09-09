@@ -35,6 +35,11 @@ class Contact
     public static $null = 'API_NULL';
 
     /**
+     * @var array
+     */
+    private $attribute = [];
+
+    /**
      * Building number
      * @var string
      */
@@ -356,6 +361,26 @@ class Contact
             $this->{$variable} = self::$null;
     }
 
+    /**
+     * @param string $apiKey
+     * @param mixed $value
+     * @return $this
+     */
+    public function setAttribute($apiKey, $value)
+    {
+        $this->attribute[$apiKey] = $value;
+        return $this;
+    }
+
+    /**
+     * @param string $apiKey
+     * @return mixed
+     */
+    public function getAttribute($apiKey)
+    {
+        return $this->attribute[$apiKey];
+    }
+
 
     /**
      * @return array
@@ -407,6 +432,12 @@ class Contact
 
         if (!empty($this->agreement))
             $this->contact[self::VAR_AGREEMENT] = $this->agreement;
+
+        if (!empty($this->attribute)) {
+            foreach ($this->attribute as $apiKey => $value) {
+                $this->contact[$apiKey] = $value;
+            }
+        }
 
         return $this->contact;
     }
