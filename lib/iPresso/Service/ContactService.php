@@ -8,6 +8,9 @@ use iPresso\Model\ContactActivity;
 
 class ContactService
 {
+    /**
+     * @var Service
+     */
     private $service;
 
     /**

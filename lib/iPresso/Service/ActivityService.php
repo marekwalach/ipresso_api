@@ -6,6 +6,9 @@ use iPresso\Model\Activity;
 
 class ActivityService
 {
+    /**
+     * @var Service
+     */
     private $service;
 
     /**

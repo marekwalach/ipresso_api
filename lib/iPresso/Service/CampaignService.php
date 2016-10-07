@@ -6,6 +6,9 @@ use iPresso\Model\Campaign;
 
 class CampaignService
 {
+    /**
+     * @var Service
+     */
     private $service;
 
     /**

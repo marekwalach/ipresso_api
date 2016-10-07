@@ -4,6 +4,9 @@ namespace iPresso\Service;
 
 class WebsiteService
 {
+    /**
+     * @var Service
+     */
     private $service;
 
     /**

@@ -6,6 +6,9 @@ use iPresso\Model\Type;
 
 class TypeService
 {
+    /**
+     * @var Service
+     */
     private $service;
 
     /**

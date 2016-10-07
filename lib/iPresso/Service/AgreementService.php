@@ -6,6 +6,9 @@ use iPresso\Model\Agreement;
 
 class AgreementService
 {
+    /**
+     * @var Service
+     */
     private $service;
 
     /**

@@ -6,6 +6,9 @@ use iPresso\Model\Tag;
 
 class TagService
 {
+    /**
+     * @var Service
+     */
     private $service;
 
     /**

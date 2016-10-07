@@ -103,17 +103,19 @@ class Attribute
     public function getAttribute()
     {
         if (empty($this->name))
-            throw new \Exception('Wrong attribute name.');
+            throw new \Exception('Wrong attribute ' . self::VAR_NAME);
 
         $this->attribute[self::VAR_NAME] = $this->name;
 
         if (empty($this->key))
-            throw new \Exception('Wrong attribute key.');
+            throw new \Exception('Wrong attribute ' . self::VAR_KEY);
 
         $this->attribute[self::VAR_KEY] = $this->key;
 
         if (empty($this->type) || !in_array($this->type, self::$attribute_types))
-            throw new \Exception('Wrong attribute type.');
+            throw new \Exception('Wrong attribute ' . self::VAR_TYPE);
+
+        $this->attribute[self::VAR_TYPE] = $this->type;
 
         return $this->attribute;
     }

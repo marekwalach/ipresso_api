@@ -6,6 +6,9 @@ use iPresso\Model\Search;
 
 class SearchService
 {
+    /**
+     * @var Service
+     */
     private $service;
 
     /**

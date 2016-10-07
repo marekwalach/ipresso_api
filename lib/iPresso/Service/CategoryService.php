@@ -6,6 +6,9 @@ use iPresso\Model\Category;
 
 class CategoryService
 {
+    /**
+     * @var Service
+     */
     private $service;
 
     /**

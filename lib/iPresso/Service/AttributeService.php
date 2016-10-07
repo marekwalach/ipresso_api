@@ -6,6 +6,9 @@ use iPresso\Model\Attribute;
 
 class AttributeService
 {
+    /**
+     * @var Service
+     */
     private $service;
 
     /**

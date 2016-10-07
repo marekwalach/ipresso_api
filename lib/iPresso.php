@@ -8,6 +8,7 @@ use iPresso\Service\CategoryService;
 use iPresso\Service\CampaignService;
 use iPresso\Service\ContactService;
 use iPresso\Service\SearchService;
+use iPresso\Service\SegmentationService;
 use iPresso\Service\SourceService;
 use iPresso\Service\TagService;
 use iPresso\Service\TypeService;
@@ -16,18 +17,74 @@ use iPresso\Service\Service;
 
 class iPresso
 {
+    /**
+     * @var ActionService
+     */
     public $action;
+
+    /**
+     * @var ActivityService
+     */
     public $activity;
+
+    /**
+     * @var AgreementService
+     */
     public $agreement;
+
+    /**
+     * @var AttributeService
+     */
     public $attribute;
+
+    /**
+     * @var CampaignService
+     */
     public $campaign;
+
+    /**
+     * @var CategoryService
+     */
     public $category;
+
+    /**
+     * @var ContactService
+     */
     public $contact;
+
+    /**
+     * @var SearchService
+     */
     public $search;
+
+    /**
+     * @var SegmentationService
+     */
+    public $segmentation;
+
+    /**
+     * @var SourceService
+     */
     public $source;
+
+    /**
+     * @var TagService
+     */
     public $tag;
+
+    /**
+     * @var TypeService
+     */
     public $type;
+
+    /**
+     * @var WebsiteService
+     */
     public $www;
+
+    /**
+     * @var Service
+     */
     private $service;
 
     /**
@@ -44,6 +101,7 @@ class iPresso
         $this->campaign = new CampaignService($this->service);
         $this->contact = new ContactService($this->service);
         $this->search = new SearchService($this->service);
+        $this->segmentation = new SegmentationService($this->service);
         $this->source = new SourceService($this->service);
         $this->tag = new TagService($this->service);
         $this->type = new TypeService($this->service);
@@ -109,7 +167,7 @@ class iPresso
      * @param callable $callBack
      * @return $this
      */
-    public function setTokenCallBack( $callBack)
+    public function setTokenCallBack($callBack)
     {
         $this->service->setTokenCallBack($callBack);
         return $this;

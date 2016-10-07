@@ -6,6 +6,9 @@ use iPresso\Model\Action;
 
 class ActionService
 {
+    /**
+     * @var Service
+     */
     private $service;
 
     /**

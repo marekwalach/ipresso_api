@@ -10,22 +10,73 @@ class Service
     const REQUEST_METHOD_PUT = 'PUT';
     const REQUEST_METHOD_DELETE = 'DELETE';
 
+    /**
+     * @var resource
+     */
     private $curlHandler;
+
+    /**
+     * @var string
+     */
     private $customerKey;
+
+    /**
+     * @var bool
+     */
     private $debug = false;
+
+    /**
+     * @var array
+     */
     private $headers;
+
+    /**
+     * @var int
+     */
     private $iteration = 0;
+
+    /**
+     * @var string
+     */
     private $login;
+
+    /**
+     * @var string
+     */
     private $password;
+
+    /**
+     * @var string
+     */
     private $post_data = '';
+
+    /**
+     * @var string
+     */
     private $request_path;
+
+    /**
+     * @var string
+     */
     private $request_type = self::REQUEST_METHOD_GET;
+
+    /**
+     * @var string
+     */
     private $token;
     /**
      * @var callable
      */
     private $tokenCallBack;
+
+    /**
+     * @var string
+     */
     private $url;
+
+    /**
+     * @var integer
+     */
     private $version = self::API_VER;
 
     /**
@@ -152,7 +203,6 @@ class Service
         $this->tokenCallBack = $tokenCallBack;
         return $this;
     }
-
 
     /**
      * @param bool $getToken
@@ -298,6 +348,12 @@ class Service
         curl_setopt($this->curlHandler, CURLOPT_COOKIE, 'XDEBUG_SESSION=1');
     }
 
+    /**
+     * @param bool $die
+     * @param mixed $variable
+     * @param bool $desc
+     * @param bool $noHtml
+     */
     public static function dump($die, $variable, $desc = false, $noHtml = false)
     {
         if (is_string($variable)) {

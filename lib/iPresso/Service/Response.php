@@ -135,12 +135,30 @@ class Response
         79 => 'Audience has more than one contact'
     ];
 
-    public
-        $code,
-        $data,
-        $error_code,
-        $error_message,
-        $message;
+    /**
+     * @var integer
+     */
+    public $code;
+
+    /**
+     * @var array
+     */
+    public $data;
+
+    /**
+     * @var integer
+     */
+    public $error_code;
+
+    /**
+     * @var string
+     */
+    public $error_message;
+
+    /**
+     * @var string
+     */
+    public $message;
 
     /**
      * Response constructor.
@@ -152,7 +170,7 @@ class Response
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getMessage()
     {
@@ -160,7 +178,7 @@ class Response
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getCode()
     {
@@ -168,7 +186,7 @@ class Response
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getData()
     {
