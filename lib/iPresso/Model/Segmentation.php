@@ -167,7 +167,7 @@ class Segmentation
 
         $this->segmentation[self::VAR_NAME] = $this->name;
 
-        if (empty($this->live_time))
+        if (empty($this->live_time) || !is_numeric($this->live_time))
             throw new \Exception('Wrong segmentation ' . self::VAR_LIVE_TIME);
 
         $this->segmentation[self::VAR_LIVE_TIME] = $this->live_time;

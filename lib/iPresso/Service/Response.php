@@ -132,7 +132,16 @@ class Response
         76 => 'Contact does not have address e-mail',
         77 => 'Contact does not have phone number',
         78 => 'Incorrect contact hash',
-        79 => 'Audience has more than one contact'
+        79 => 'Audience has more than one contact',
+        87 => 'Agreement is used',
+        89 => 'Lack of segmentation name',
+        90 => 'Lack of segmentation live time',
+        91 => 'Error at segmentation addition',
+        92 => 'Segmentation is inactive',
+        93 => 'Segmentation deletion error',
+        94 => 'Segmentation does not exists',
+        95 => 'Segmentation contact origin ID is wrong',
+        96 => 'Segmentation was not created by API',
     ];
 
     /**
