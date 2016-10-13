@@ -83,6 +83,11 @@ class Contact
     private $first_name = '';
 
     /**
+     * @var integer
+     */
+    private $id_contact;
+
+    /**
      * Last name
      * @required *
      * @var string
@@ -381,6 +386,149 @@ class Contact
         return $this->attribute[$apiKey];
     }
 
+    /**
+     * @return string
+     */
+    public function getBuildingNumber()
+    {
+        return $this->building_number;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFlatNumber()
+    {
+        return $this->flat_number;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->first_name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdContact()
+    {
+        return $this->id_contact;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->last_name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMobile()
+    {
+        return $this->mobile;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPostCode()
+    {
+        return $this->post_code;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAgreement()
+    {
+        return $this->agreement;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
 
     /**
      * @return array

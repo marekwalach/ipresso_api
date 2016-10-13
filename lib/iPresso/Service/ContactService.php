@@ -56,6 +56,12 @@ class ContactService
      */
     public function edit($id_contact, Contact $contact)
     {
+        if (!$id_contact || !is_numeric($id_contact))
+            $id_contact = $contact->getIdContact();
+
+        if (!$id_contact)
+            throw new \Exception('Contact id missing.');
+
         return $this
             ->service
             ->setRequestPath('contact/' . $id_contact)
