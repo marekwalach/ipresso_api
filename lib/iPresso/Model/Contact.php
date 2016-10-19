@@ -151,6 +151,16 @@ class Contact
     private $tag = [];
 
     /**
+     * @param int $id_contact
+     * @return Contact
+     */
+    public function setIdContact($id_contact)
+    {
+        $this->id_contact = $id_contact;
+        return $this;
+    }
+
+    /**
      * @param string $building_number
      * @return Contact
      */
