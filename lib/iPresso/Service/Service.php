@@ -21,6 +21,11 @@ class Service
     private $customerKey;
 
     /**
+     * @var array
+     */
+    private $customHeaders = [];
+
+    /**
      * @var bool
      */
     private $debug = false;
@@ -187,6 +192,16 @@ class Service
     }
 
     /**
+     * @param string $customHeader
+     * @return Service
+     */
+    public function addCustomHeader($customHeader)
+    {
+        $this->customHeaders[] = $customHeader;
+        return $this;
+    }
+
+    /**
      * @return mixed
      */
     public function getTokenCallBack()
@@ -310,7 +325,7 @@ class Service
     private function _exec($url)
     {
         curl_setopt($this->curlHandler, CURLOPT_URL, $url);
-        curl_setopt($this->curlHandler, CURLOPT_HTTPHEADER, $this->headers);
+        curl_setopt($this->curlHandler, CURLOPT_HTTPHEADER, array_merge($this->headers, $this->customHeaders));
         $jSON = curl_exec($this->curlHandler);
 
         if ($this->debug) {

@@ -182,6 +182,15 @@ class iPresso
     }
 
     /**
+     * @param $header
+     * @return Service
+     */
+    public function addHeader($header)
+    {
+        return $this->service->addCustomHeader($header);
+    }
+
+    /**
      * @return $this
      */
     public function debug()

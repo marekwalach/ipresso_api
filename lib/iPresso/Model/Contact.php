@@ -389,10 +389,13 @@ class Contact
 
     /**
      * @param string $apiKey
-     * @return mixed
+     * @return mixed|false
      */
     public function getAttribute($apiKey)
     {
+        if (!isset($this->attribute[$apiKey])) {
+            return false;
+        }
         return $this->attribute[$apiKey];
     }
 
