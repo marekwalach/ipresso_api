@@ -165,7 +165,7 @@ class iPresso
 
     /**
      * @param callable $callBack
-     * @return $this
+     * @return iPresso
      */
     public function setTokenCallBack($callBack)
     {
@@ -183,15 +183,16 @@ class iPresso
 
     /**
      * @param $header
-     * @return Service
+     * @return iPresso
      */
     public function addHeader($header)
     {
-        return $this->service->addCustomHeader($header);
+        $this->service->addCustomHeader($header);
+        return $this;
     }
 
     /**
-     * @return $this
+     * @return iPresso
      */
     public function debug()
     {
