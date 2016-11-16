@@ -21,6 +21,8 @@ class Contact
     const VAR_CATEGORY = 'category';
     const VAR_TAG = 'tag';
     const VAR_AGREEMENT = 'agreement';
+    const VAR_ORIGIN = 'origin';
+    const VAR_IP = 'ip';
 
     /**
      * @required * - one of the above fields must be sent
@@ -149,6 +151,17 @@ class Contact
      * @var array
      */
     private $tag = [];
+
+    /**
+     * @var string
+     */
+    private $origin;
+
+    /**
+     * IP Address
+     * @var string
+     */
+    private $ip;
 
     /**
      * @param int $id_contact
@@ -544,6 +557,42 @@ class Contact
     }
 
     /**
+     * @return string
+     */
+    public function getOrigin()
+    {
+        return $this->origin;
+    }
+
+    /**
+     * @param string $origin
+     * @return Contact
+     */
+    public function setOrigin($origin)
+    {
+        $this->origin = $origin;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @param string $ip
+     * @return Contact
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+        return $this;
+    }
+
+    /**
      * @return array
      * @throws \Exception
      */
@@ -593,6 +642,12 @@ class Contact
 
         if (!empty($this->agreement))
             $this->contact[self::VAR_AGREEMENT] = $this->agreement;
+
+        if (!empty($this->origin))
+            $this->contact[self::VAR_ORIGIN] = $this->origin;
+
+        if (!empty($this->ip))
+            $this->contact[self::VAR_IP] = $this->ip;
 
         if (!empty($this->attribute)) {
             foreach ($this->attribute as $apiKey => $value) {
