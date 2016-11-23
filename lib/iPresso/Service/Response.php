@@ -170,59 +170,92 @@ class Response
     public $message;
 
     /**
-     * Response constructor.
-     * @param $response
+     * @return int
      */
-    public function __construct($response)
-    {
-        return $this->getResponse($response);
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getCode()
+    public function getCode(): int
     {
         return $this->code;
     }
 
     /**
+     * @param int $code
+     * @return Response
+     */
+    public function setCode(int $code): Response
+    {
+        $this->code = $code;
+        return $this;
+    }
+
+    /**
      * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
 
     /**
-     * @param $response
+     * @param array $data
      * @return Response
      */
-    public function getResponse($response)
+    public function setData(array $data): Response
     {
-        if (isset($response->code))
-            $this->code = $response->code;
+        $this->data = $data;
+        return $this;
+    }
 
-        if (isset($response->data))
-            $this->data = $response->data;
+    /**
+     * @return int
+     */
+    public function getErrorCode(): int
+    {
+        return $this->error_code;
+    }
 
-        if (isset($response->errorCode))
-            $this->error_code = $response->errorCode;
+    /**
+     * @param int $error_code
+     * @return Response
+     */
+    public function setErrorCode(int $error_code): Response
+    {
+        $this->error_code = $error_code;
+        return $this;
+    }
 
-        if (isset($response->errorCode) && isset(self::$error_codes[$response->errorCode]))
-            $this->error_message = self::$error_codes[$response->errorCode];
+    /**
+     * @return string
+     */
+    public function getErrorMessage(): string
+    {
+        return $this->error_message;
+    }
 
-        if (isset($response->message))
-            $this->message = $response->message;
+    /**
+     * @param string $error_message
+     * @return Response
+     */
+    public function setErrorMessage(string $error_message): Response
+    {
+        $this->error_message = $error_message;
+        return $this;
+    }
 
+    /**
+     * @return string
+     */
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param string $message
+     * @return Response
+     */
+    public function setMessage(string $message): Response
+    {
+        $this->message = $message;
         return $this;
     }
 

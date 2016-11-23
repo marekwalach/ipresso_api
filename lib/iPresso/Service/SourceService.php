@@ -26,8 +26,8 @@ class SourceService
     {
         return $this
             ->service
-            ->setRequestPath('origin')
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('origin')
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -44,8 +44,8 @@ class SourceService
 
         return $this
             ->service
-            ->setRequestPath('origin/' . $idSource . '/contact' . $page)
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('origin/' . $idSource . '/contact' . $page)
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 }

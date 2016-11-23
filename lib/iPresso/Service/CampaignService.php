@@ -35,9 +35,9 @@ class CampaignService
 
         return $this
             ->service
-            ->setRequestPath('campaign/' . $idCampaign . '/send' . $key)
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($campaign->getCampaign())
+            ->setPath('campaign/' . $idCampaign . '/send' . $key)
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($campaign->getCampaign())
             ->request();
     }
 }

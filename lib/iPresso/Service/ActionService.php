@@ -30,9 +30,9 @@ class ActionService
     {
         return $this
             ->service
-            ->setRequestPath('action')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($action->getAction())
+            ->setPath('action')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($action->getAction())
             ->request();
     }
 
@@ -44,8 +44,8 @@ class ActionService
     {
         return $this
             ->service
-            ->setRequestPath('action')
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('action')
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 }

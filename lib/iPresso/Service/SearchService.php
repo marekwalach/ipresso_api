@@ -34,9 +34,9 @@ class SearchService
 
         return $this
             ->service
-            ->setRequestPath('contact/search' . $extended)
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData(['contact' => $search->getCriteria()])
+            ->setPath('contact/search' . $extended)
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData(['contact' => $search->getCriteria()])
             ->request();
     }
 

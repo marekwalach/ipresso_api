@@ -32,8 +32,8 @@ class CategoryService
 
         return $this
             ->service
-            ->setRequestPath('category' . $idCategory)
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('category' . $idCategory)
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -47,9 +47,9 @@ class CategoryService
     {
         return $this
             ->service
-            ->setRequestPath('category')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($category->getCategory())
+            ->setPath('category')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($category->getCategory())
             ->request();
     }
 
@@ -64,9 +64,9 @@ class CategoryService
     {
         return $this
             ->service
-            ->setRequestPath('category/' . $idCategory)
-            ->setRequestType(Service::REQUEST_METHOD_PUT)
-            ->setPostData(['category' => $category->getCategory()])
+            ->setPath('category/' . $idCategory)
+            ->setMethod(Service::REQUEST_METHOD_PUT)
+            ->setData(['category' => $category->getCategory()])
             ->request();
     }
 
@@ -79,8 +79,8 @@ class CategoryService
     {
         return $this
             ->service
-            ->setRequestPath('category/' . $idCategory)
-            ->setRequestType(Service::REQUEST_METHOD_DELETE)
+            ->setPath('category/' . $idCategory)
+            ->setMethod(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
 
@@ -99,9 +99,9 @@ class CategoryService
         $data['contact'] = $contactIds;
         return $this
             ->service
-            ->setRequestPath('category/' . $idCategory . '/contact')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($data)
+            ->setPath('category/' . $idCategory . '/contact')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($data)
             ->request();
     }
 
@@ -118,8 +118,8 @@ class CategoryService
 
         return $this
             ->service
-            ->setRequestPath('category/' . $idCategory . '/contact' . $page)
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('category/' . $idCategory . '/contact' . $page)
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -133,8 +133,8 @@ class CategoryService
     {
         return $this
             ->service
-            ->setRequestPath('category/' . $idCategory . '/contact/' . $idContact)
-            ->setRequestType(Service::REQUEST_METHOD_DELETE)
+            ->setPath('category/' . $idCategory . '/contact/' . $idContact)
+            ->setMethod(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
 }

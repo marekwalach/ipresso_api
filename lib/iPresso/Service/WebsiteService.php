@@ -29,8 +29,8 @@ class WebsiteService
             $idWww = '/' . $idWww;
         return $this
             ->service
-            ->setRequestPath('www' . $idWww)
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('www' . $idWww)
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -50,9 +50,9 @@ class WebsiteService
 
         return $this
             ->service
-            ->setRequestPath('www')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($data)
+            ->setPath('www')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($data)
             ->request();
     }
 
@@ -65,8 +65,8 @@ class WebsiteService
     {
         return $this
             ->service
-            ->setRequestPath('www/' . $idWww)
-            ->setRequestType(Service::REQUEST_METHOD_DELETE)
+            ->setPath('www/' . $idWww)
+            ->setMethod(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
 

@@ -32,8 +32,8 @@ class TagService
 
         return $this
             ->service
-            ->setRequestPath('tag' . $idTag)
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('tag' . $idTag)
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -48,9 +48,9 @@ class TagService
         $data['name'] = $tag;
         return $this
             ->service
-            ->setRequestPath('tag')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($tag->getTag())
+            ->setPath('tag')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($tag->getTag())
             ->request();
     }
 
@@ -65,9 +65,9 @@ class TagService
     {
         return $this
             ->service
-            ->setRequestPath('tag/' . $idTag)
-            ->setRequestType(Service::REQUEST_METHOD_PUT)
-            ->setPostData(['tag' => $tag->getTag()])
+            ->setPath('tag/' . $idTag)
+            ->setMethod(Service::REQUEST_METHOD_PUT)
+            ->setData(['tag' => $tag->getTag()])
             ->request();
     }
 
@@ -80,8 +80,8 @@ class TagService
     {
         return $this
             ->service
-            ->setRequestPath('tag/' . $idTag)
-            ->setRequestType(Service::REQUEST_METHOD_DELETE)
+            ->setPath('tag/' . $idTag)
+            ->setMethod(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
 
@@ -100,9 +100,9 @@ class TagService
         $data['contact'] = $contactIds;
         return $this
             ->service
-            ->setRequestPath('tag/' . $idTag . '/contact')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($data)
+            ->setPath('tag/' . $idTag . '/contact')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($data)
             ->request();
     }
 
@@ -119,8 +119,8 @@ class TagService
 
         return $this
             ->service
-            ->setRequestPath('tag/' . $idTag . '/contact' . $page)
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('tag/' . $idTag . '/contact' . $page)
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -134,8 +134,8 @@ class TagService
     {
         return $this
             ->service
-            ->setRequestPath('tag/' . $idTag . '/contact/' . $idContact)
-            ->setRequestType(Service::REQUEST_METHOD_DELETE)
+            ->setPath('tag/' . $idTag . '/contact/' . $idContact)
+            ->setMethod(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
 

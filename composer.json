@@ -19,7 +19,9 @@
     "marketing automation"
   ],
   "require": {
-    "php": ">=5.3"
+    "php": ">=5.3",
+    "guzzlehttp/guzzle": "~6.0",
+    "itav/serializer": "^1.2"
   },
   "require-dev": {
   },

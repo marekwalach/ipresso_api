@@ -30,9 +30,9 @@ class AgreementService
     {
         return $this
             ->service
-            ->setRequestPath('agreement')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($agreement->getAgreement())
+            ->setPath('agreement')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($agreement->getAgreement())
             ->request();
     }
 
@@ -44,8 +44,8 @@ class AgreementService
     {
         return $this
             ->service
-            ->setRequestPath('agreement')
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('agreement')
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -60,9 +60,9 @@ class AgreementService
     {
         return $this
             ->service
-            ->setRequestPath('agreement/' . $idAgreement)
-            ->setRequestType(Service::REQUEST_METHOD_PUT)
-            ->setPostData(['agreement' => $agreement->getAgreement()])
+            ->setPath('agreement/' . $idAgreement)
+            ->setMethod(Service::REQUEST_METHOD_PUT)
+            ->setData(['agreement' => $agreement->getAgreement()])
             ->request();
     }
 
@@ -75,8 +75,8 @@ class AgreementService
     {
         return $this
             ->service
-            ->setRequestPath('agreement/' . $idAgreement)
-            ->setRequestType(Service::REQUEST_METHOD_DELETE)
+            ->setPath('agreement/' . $idAgreement)
+            ->setMethod(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
 
@@ -95,9 +95,9 @@ class AgreementService
         $data['contact'] = $contactIds;
         return $this
             ->service
-            ->setRequestPath('agreement/' . $idAgreement . '/contact')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($data)
+            ->setPath('agreement/' . $idAgreement . '/contact')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($data)
             ->request();
     }
 
@@ -114,8 +114,8 @@ class AgreementService
 
         return $this
             ->service
-            ->setRequestPath('agreement/' . $idAgreement . '/contact' . $page)
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('agreement/' . $idAgreement . '/contact' . $page)
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -129,8 +129,8 @@ class AgreementService
     {
         return $this
             ->service
-            ->setRequestPath('agreement/' . $idAgreement . '/contact/' . $idContact)
-            ->setRequestType(Service::REQUEST_METHOD_DELETE)
+            ->setPath('agreement/' . $idAgreement . '/contact/' . $idContact)
+            ->setMethod(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
 }

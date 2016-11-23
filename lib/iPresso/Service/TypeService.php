@@ -28,8 +28,8 @@ class TypeService
     {
         return $this
             ->service
-            ->setRequestPath('type')
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('type')
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -43,9 +43,9 @@ class TypeService
     {
         return $this
             ->service
-            ->setRequestPath('type')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($type->getType())
+            ->setPath('type')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($type->getType())
             ->request();
     }
 
@@ -62,8 +62,8 @@ class TypeService
 
         return $this
             ->service
-            ->setRequestPath('type/' . $idType . '/contact' . $page)
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('type/' . $idType . '/contact' . $page)
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -82,9 +82,9 @@ class TypeService
         $data['contact'] = $contactIds;
         return $this
             ->service
-            ->setRequestPath('type/' . $typeKey . '/contact')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($data)
+            ->setPath('type/' . $typeKey . '/contact')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($data)
             ->request();
     }
 }

@@ -30,9 +30,9 @@ class AttributeService
     {
         return $this
             ->service
-            ->setRequestPath('attribute')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($attribute->getAttribute())
+            ->setPath('attribute')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($attribute->getAttribute())
             ->request();
     }
 
@@ -44,8 +44,8 @@ class AttributeService
     {
         return $this
             ->service
-            ->setRequestPath('attribute')
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('attribute')
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 }

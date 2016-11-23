@@ -28,9 +28,9 @@ class SegmentationService
     {
         return $this
             ->service
-            ->setRequestPath('segmentation')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($segmentation->getSegmentation())
+            ->setPath('segmentation')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($segmentation->getSegmentation())
             ->request();
     }
 
@@ -42,8 +42,8 @@ class SegmentationService
     {
         return $this
             ->service
-            ->setRequestPath('segmentation/' . $idSegmentation)
-            ->setRequestType(Service::REQUEST_METHOD_DELETE)
+            ->setPath('segmentation/' . $idSegmentation)
+            ->setMethod(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
 
@@ -60,9 +60,9 @@ class SegmentationService
 
         return $this
             ->service
-            ->setRequestPath('segmentation/' . $idSegmentation . '/contact')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($segmentation->getSegmentationContact())
+            ->setPath('segmentation/' . $idSegmentation . '/contact')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($segmentation->getSegmentationContact())
             ->request();
     }
 }

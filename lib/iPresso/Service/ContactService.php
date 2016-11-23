@@ -41,9 +41,9 @@ class ContactService
 
         return $this
             ->service
-            ->setRequestPath('contact')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($post_data)
+            ->setPath('contact')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($post_data)
             ->request();
     }
 
@@ -64,9 +64,9 @@ class ContactService
 
         return $this
             ->service
-            ->setRequestPath('contact/' . $id_contact)
-            ->setRequestType(Service::REQUEST_METHOD_PUT)
-            ->setPostData(['contact' => $contact->getContact()])
+            ->setPath('contact/' . $id_contact)
+            ->setMethod(Service::REQUEST_METHOD_PUT)
+            ->setData(['contact' => $contact->getContact()])
             ->request();
     }
 
@@ -79,8 +79,8 @@ class ContactService
     {
         return $this
             ->service
-            ->setRequestPath('contact/' . $id_contact)
-            ->setRequestType(Service::REQUEST_METHOD_DELETE)
+            ->setPath('contact/' . $id_contact)
+            ->setMethod(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
 
@@ -93,8 +93,8 @@ class ContactService
     {
         return $this
             ->service
-            ->setRequestPath('contact/' . $id_contact)
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('contact/' . $id_contact)
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -109,9 +109,9 @@ class ContactService
         $data['tag'] = [$tagString];
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/tag')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($data)
+            ->setPath('contact/' . $idContact . '/tag')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($data)
             ->request();
     }
 
@@ -124,8 +124,8 @@ class ContactService
     {
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/tag')
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('contact/' . $idContact . '/tag')
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -139,8 +139,8 @@ class ContactService
     {
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/tag/' . $idTag)
-            ->setRequestType(Service::REQUEST_METHOD_DELETE)
+            ->setPath('contact/' . $idContact . '/tag/' . $idTag)
+            ->setMethod(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
 
@@ -155,9 +155,9 @@ class ContactService
         $data['category'] = $categoryIds;
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/category')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($data)
+            ->setPath('contact/' . $idContact . '/category')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($data)
             ->request();
     }
 
@@ -170,8 +170,8 @@ class ContactService
     {
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/category')
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('contact/' . $idContact . '/category')
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -185,8 +185,8 @@ class ContactService
     {
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/category/' . $idCategory)
-            ->setRequestType(Service::REQUEST_METHOD_DELETE)
+            ->setPath('contact/' . $idContact . '/category/' . $idCategory)
+            ->setMethod(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
 
@@ -199,8 +199,8 @@ class ContactService
     {
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/integration')
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('contact/' . $idContact . '/integration')
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -218,9 +218,9 @@ class ContactService
         $data['agreement'] = $agreement;
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/agreement')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($data)
+            ->setPath('contact/' . $idContact . '/agreement')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($data)
             ->request();
     }
 
@@ -233,8 +233,8 @@ class ContactService
     {
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/agreement')
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('contact/' . $idContact . '/agreement')
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -248,8 +248,8 @@ class ContactService
     {
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/agreement/' . $idAgreement)
-            ->setRequestType(Service::REQUEST_METHOD_DELETE)
+            ->setPath('contact/' . $idContact . '/agreement/' . $idAgreement)
+            ->setMethod(Service::REQUEST_METHOD_DELETE)
             ->request();
     }
 
@@ -265,9 +265,9 @@ class ContactService
         $data['activity'][] = $contactActivity->getContactActivity();
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/activity')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($data)
+            ->setPath('contact/' . $idContact . '/activity')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($data)
             ->request();
     }
 
@@ -285,8 +285,8 @@ class ContactService
 
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/activity' . $page)
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('contact/' . $idContact . '/activity' . $page)
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -302,9 +302,9 @@ class ContactService
         $data['action'][] = $contactAction->getContactAction();
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/action')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($data)
+            ->setPath('contact/' . $idContact . '/action')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($data)
             ->request();
     }
 
@@ -321,8 +321,8 @@ class ContactService
 
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/action' . $page)
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('contact/' . $idContact . '/action' . $page)
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -335,8 +335,8 @@ class ContactService
     {
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/type')
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('contact/' . $idContact . '/type')
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -351,9 +351,9 @@ class ContactService
         $data['type'] = $typeKey;
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/type')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($data)
+            ->setPath('contact/' . $idContact . '/type')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($data)
             ->request();
     }
 
@@ -366,8 +366,8 @@ class ContactService
     {
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/connection')
-            ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->setPath('contact/' . $idContact . '/connection')
+            ->setMethod(Service::REQUEST_METHOD_GET)
             ->request();
     }
 
@@ -382,9 +382,9 @@ class ContactService
         $data['connection'] = [$idContactToConnect];
         return $this
             ->service
-            ->setRequestPath('contact/' . $idContact . '/connection')
-            ->setRequestType(Service::REQUEST_METHOD_POST)
-            ->setPostData($data)
+            ->setPath('contact/' . $idContact . '/connection')
+            ->setMethod(Service::REQUEST_METHOD_POST)
+            ->setData($data)
             ->request();
     }
 }

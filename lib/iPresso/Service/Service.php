@@ -2,6 +2,14 @@
 
 namespace iPresso\Service;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
+use Itav\Component\Serializer\Serializer;
+
+/**
+ * Class Service
+ * @package iPresso\Service
+ */
 class Service
 {
     const API_VER = 2;
@@ -9,11 +17,6 @@ class Service
     const REQUEST_METHOD_POST = 'POST';
     const REQUEST_METHOD_PUT = 'PUT';
     const REQUEST_METHOD_DELETE = 'DELETE';
-
-    /**
-     * @var resource
-     */
-    private $curlHandler;
 
     /**
      * @var string
@@ -31,6 +34,11 @@ class Service
     private $debug = false;
 
     /**
+     * @var Client
+     */
+    private $guzzle;
+
+    /**
      * @var array
      */
     private $headers;
@@ -46,29 +54,40 @@ class Service
     private $login;
 
     /**
+     * @var array
+     */
+    private $options = [];
+
+    /**
      * @var string
      */
     private $password;
 
     /**
-     * @var string
+     * @var array
      */
-    private $post_data = '';
+    private $data;
 
     /**
      * @var string
      */
-    private $request_path;
+    private $path;
 
     /**
      * @var string
      */
-    private $request_type = self::REQUEST_METHOD_GET;
+    private $method = self::REQUEST_METHOD_GET;
+
+    /**
+     * @var Serializer
+     */
+    private $serializer;
 
     /**
      * @var string
      */
     private $token;
+
     /**
      * @var callable
      */
@@ -89,7 +108,8 @@ class Service
      */
     public function __construct()
     {
-        $this->_curlInit();
+        $this->serializer = new Serializer();
+        $this->guzzle = new Client(['http_errors' => false]);
     }
 
     /**
@@ -143,32 +163,32 @@ class Service
     }
 
     /**
-     * @param mixed $request_type
+     * @param mixed $method
      * @return Service
      */
-    public function setRequestType($request_type)
+    public function setMethod($method)
     {
-        $this->request_type = $request_type;
+        $this->method = $method;
         return $this;
     }
 
     /**
-     * @param mixed $request_path
+     * @param mixed $path
      * @return Service
      */
-    public function setRequestPath($request_path)
+    public function setPath($path)
     {
-        $this->request_path = $request_path;
+        $this->path = $path;
         return $this;
     }
 
     /**
-     * @param array $post_data
+     * @param array $data
      * @return Service
      */
-    public function setPostData($post_data)
+    public function setData($data)
     {
-        $this->post_data = http_build_query($post_data);
+        $this->data = $data;
         return $this;
     }
 
@@ -223,7 +243,7 @@ class Service
      * @param bool $getToken
      * @throws \Exception
      */
-    private function _check($getToken = false)
+    private function validator($getToken = false)
     {
         if (!$this->token && !$getToken)
             throw new \Exception('Set token first.');
@@ -243,49 +263,23 @@ class Service
 
 
     /**
-     * @return bool|Response
+     * @return Response
      */
     public function request()
     {
-        $this->_check();
-        $this->_type();
-        $this->_requestHeaders();
-        $response = (new Response($this->_exec($this->url . $this->request_path)));
-        if (isset($response->code)) {
-            switch ($response->code) {
-                case Response::STATUS_FORBIDDEN:
-                    if (!isset($response->error_code) && $this->iteration < 5 && $this->getToken()) {
-                        $this->iteration++;
-                        return $this->request();
-                    }
-                default:
-                    return $response;
-                    break;
-            }
-        }
-        return false;
-    }
+        $this->validator();
+        $this->headers();
+        $this->options();
 
-
-    private function _type()
-    {
-        switch ($this->request_type) {
-            case self::REQUEST_METHOD_DELETE:
-                curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, self::REQUEST_METHOD_DELETE);
-                break;
-            case self::REQUEST_METHOD_POST:
-                curl_setopt($this->curlHandler, CURLOPT_POST, true);
-                curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $this->post_data);
-                curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, self::REQUEST_METHOD_POST);
-                break;
-            case self::REQUEST_METHOD_PUT:
-                curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, self::REQUEST_METHOD_PUT);
-                curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $this->post_data);
-                break;
-            case self::REQUEST_METHOD_GET:
-                curl_setopt($this->curlHandler, CURLOPT_CUSTOMREQUEST, self::REQUEST_METHOD_GET);
-                break;
+        $response = $this->execute($this->url . $this->path);
+        switch ($response->getCode()) {
+            case Response::STATUS_FORBIDDEN:
+                if (!$response->getErrorCode() && $this->iteration < 5 && $this->getToken()) {
+                    $this->iteration++;
+                    return $this->request();
+                }
             default:
+                return $response;
                 break;
         }
     }
@@ -293,74 +287,73 @@ class Service
     /**
      * Use to get session token
      * @param bool $fullResponse
-     * @return bool|Response
+     * @return false|string|Response
      * @throws \Exception
      */
     public function getToken($fullResponse = false)
     {
-        $this->_check(true);
-        $this->_headers();
-        $this->_auth();
-        $response = (new Response($this->_exec($this->url . 'auth/' . $this->customerKey)));
+        $this->validator(true);
+        $this->headers(true);
+        $this->options(true);
+
+        $response = $this->execute($this->url . 'auth/' . $this->customerKey);
 
         if ($fullResponse)
             return $response;
 
-        if (isset($response->code) && 200 == $response->code) {
+        if (Response::STATUS_OK == $response->getCode()) {
+            $this->token = $response->getData();
 
-            if (!empty($this->tokenCallBack)) {
-                call_user_func($this->tokenCallBack, $response->data);
-            }
+            if (!empty($this->tokenCallBack))
+                call_user_func($this->tokenCallBack, $this->token);
 
-            $this->token = $response->data;
             return $this->token;
         }
         return false;
     }
 
     /**
-     * @param string $url
-     * @return mixed
+     * @param bool $authorization
      */
-    private function _exec($url)
+    private function options($authorization = false)
     {
-        curl_setopt($this->curlHandler, CURLOPT_URL, $url);
-        curl_setopt($this->curlHandler, CURLOPT_HTTPHEADER, array_merge($this->headers, $this->customHeaders));
-        $jSON = curl_exec($this->curlHandler);
+        $this->options[RequestOptions::HEADERS] = array_merge($this->headers, $this->customHeaders);
+        $this->options['config']['curl'] = [
+            CURLOPT_FOLLOWLOCATION => false,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_COOKIE => 'XDEBUG_SESSION=1'
+        ];
 
-        if ($this->debug) {
-            print_r($jSON);
-        }
+        if ($authorization)
+            $this->options[RequestOptions::AUTH] = [$this->login, $this->password];
 
-        return json_decode($jSON);
+        if ($this->data)
+            $this->options[RequestOptions::FORM_PARAMS] = $this->data;
     }
 
-    private function _headers()
+    /**
+     * @param string $url
+     * @return Response
+     */
+    private function execute($url)
     {
-        $this->headers = array();
-        $this->headers[] = 'ACCEPT: text/json';
-        $this->headers[] = 'USER_AGENT: iPresso';
+        $response = $this->guzzle->request($this->method, $url, $this->options);
+
+        if ($this->debug)
+            print_r($response->getBody()->getContents());
+
+        return $this->serializer->denormalize(json_decode($response->getBody()->getContents(), true), Response::class);
     }
 
-    private function _auth()
+    /**
+     * @param bool $authorization
+     */
+    private function headers($authorization = false)
     {
-        curl_setopt($this->curlHandler, CURLOPT_USERPWD, $this->login . ':' . $this->password);
-    }
-
-    private function _requestHeaders()
-    {
-        $this->_headers();
-        $this->headers[] = 'IPRESSO_TOKEN: ' . $this->token;
-    }
-
-    private function _curlInit()
-    {
-        $this->curlHandler = curl_init();
-        curl_setopt($this->curlHandler, CURLOPT_FOLLOWLOCATION, false);
-        curl_setopt($this->curlHandler, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->curlHandler, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($this->curlHandler, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($this->curlHandler, CURLOPT_COOKIE, 'XDEBUG_SESSION=1');
+        $this->headers['ACCEPT'] = 'text/json';
+        $this->headers['USER_AGENT'] = 'iPresso';
+        if (!$authorization)
+            $this->headers['IPRESSO_TOKEN'] = $this->token;
     }
 
     /**
