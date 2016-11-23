@@ -89,9 +89,14 @@ class Service
     private $token;
 
     /**
-     * @var callable
+     * @var \ReflectionClass
      */
-    private $tokenCallBack;
+    private $tokenCallBackClass;
+
+    /**
+     * @var \ReflectionMethod
+     */
+    private $tokenCallBackMethod;
 
     /**
      * @var string
@@ -222,20 +227,14 @@ class Service
     }
 
     /**
-     * @return mixed
+     * @param \ReflectionClass $reflectionClass
+     * @param \ReflectionMethod $reflectionMethod
+     * @return Service
      */
-    public function getTokenCallBack()
+    public function setTokenCallBack(\ReflectionClass $reflectionClass, \ReflectionMethod $reflectionMethod)
     {
-        return $this->tokenCallBack;
-    }
-
-    /**
-     * @param mixed $tokenCallBack
-     * @return $this
-     */
-    public function setTokenCallBack($tokenCallBack)
-    {
-        $this->tokenCallBack = $tokenCallBack;
+        $this->tokenCallBackClass = $reflectionClass;
+        $this->tokenCallBackMethod = $reflectionMethod;
         return $this;
     }
 
@@ -304,8 +303,11 @@ class Service
         if (Response::STATUS_OK == $response->getCode()) {
             $this->token = $response->getData();
 
-            if (!empty($this->tokenCallBack))
-                call_user_func($this->tokenCallBack, $this->token);
+            if (
+                $this->tokenCallBackClass instanceof \ReflectionClass
+                && $this->tokenCallBackMethod instanceof \ReflectionMethod
+            )
+                $this->tokenCallBackMethod->invoke($this->tokenCallBackClass->newInstance());
 
             return $this->token;
         }
@@ -318,11 +320,6 @@ class Service
     private function options($authorization = false)
     {
         $this->options[RequestOptions::HEADERS] = array_merge($this->headers, $this->customHeaders);
-        $this->options['config']['curl'] = [
-            CURLOPT_FOLLOWLOCATION => false,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_COOKIE => 'XDEBUG_SESSION=1'
-        ];
 
         if ($authorization)
             $this->options[RequestOptions::AUTH] = [$this->login, $this->password];

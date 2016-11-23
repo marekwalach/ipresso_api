@@ -164,12 +164,13 @@ class iPresso
     }
 
     /**
-     * @param callable $callBack
+     * @param ReflectionClass $reflectionClass
+     * @param ReflectionMethod $reflectionMethod
      * @return iPresso
      */
-    public function setTokenCallBack($callBack)
+    public function setTokenCallBack(ReflectionClass $reflectionClass, ReflectionMethod $reflectionMethod)
     {
-        $this->service->setTokenCallBack($callBack);
+        $this->service->setTokenCallBack($reflectionClass, $reflectionMethod);
         return $this;
     }
 
