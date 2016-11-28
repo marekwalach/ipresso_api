@@ -23,6 +23,7 @@ class Contact
     const VAR_AGREEMENT = 'agreement';
     const VAR_ORIGIN = 'origin';
     const VAR_IP = 'ip';
+    const VAR_WWW = 'www';
 
     /**
      * @required * - one of the above fields must be sent
@@ -162,6 +163,11 @@ class Contact
      * @var string
      */
     private $ip;
+
+    /**
+     * @var string
+     */
+    private $www;
 
     /**
      * @param int $id_contact
@@ -593,6 +599,24 @@ class Contact
     }
 
     /**
+     * @return string
+     */
+    public function getWww()
+    {
+        return $this->www;
+    }
+
+    /**
+     * @param string $www
+     * @return Contact
+     */
+    public function setWww($www)
+    {
+        $this->www = $www;
+        return $this;
+    }
+
+    /**
      * @return array
      * @throws \Exception
      */
@@ -648,6 +672,9 @@ class Contact
 
         if (!empty($this->ip))
             $this->contact[self::VAR_IP] = $this->ip;
+
+        if (!empty($this->www))
+            $this->contact[self::VAR_WWW] = $this->www;
 
         if (!empty($this->attribute)) {
             foreach ($this->attribute as $apiKey => $value) {
