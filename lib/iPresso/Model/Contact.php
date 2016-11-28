@@ -676,6 +676,9 @@ class Contact
         if (!empty($this->www))
             $this->contact[self::VAR_WWW] = $this->www;
 
+        if (!empty($this->street))
+            $this->contact[self::VAR_STREET] = $this->street;
+
         if (!empty($this->attribute)) {
             foreach ($this->attribute as $apiKey => $value) {
                 $this->contact[$apiKey] = $value;
