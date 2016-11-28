@@ -15,6 +15,9 @@ use iPresso\Service\TypeService;
 use iPresso\Service\WebsiteService;
 use iPresso\Service\Service;
 
+/**
+ * Class iPresso
+ */
 class iPresso
 {
     /**
@@ -150,14 +153,13 @@ class iPresso
 
     /**
      * @param string $url
-     * @return $this
-     * @throws Exception
+     * @return iPresso
      */
     public function setUrl($url)
     {
         $address = parse_url($url);
         if (!isset($address['scheme']) || $address['scheme'] != 'https')
-            throw new Exception('Set URL with https://');
+            $url = 'https://' . $url;
 
         $this->service->setUrl($url);
         return $this;
@@ -175,7 +177,7 @@ class iPresso
     }
 
     /**
-     * @return bool|string
+     * @return string
      */
     public function getToken()
     {
