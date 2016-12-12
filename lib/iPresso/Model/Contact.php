@@ -23,6 +23,8 @@ class Contact
     const VAR_AGREEMENT = 'agreement';
     const VAR_ORIGIN = 'origin';
     const VAR_IP = 'ip';
+    const VAR_WWW = 'www';
+    const VAR_WORK_POSITION = 'workPosition';
 
     /**
      * @required * - one of the above fields must be sent
@@ -162,6 +164,16 @@ class Contact
      * @var string
      */
     private $ip;
+
+    /**
+     * @var string
+     */
+    private $www;
+
+    /**
+     * @var string
+     */
+    private $work_position;
 
     /**
      * @param int $id_contact
@@ -593,6 +605,42 @@ class Contact
     }
 
     /**
+     * @return string
+     */
+    public function getWww()
+    {
+        return $this->www;
+    }
+
+    /**
+     * @param string $www
+     * @return Contact
+     */
+    public function setWww($www)
+    {
+        $this->www = $www;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWorkPosition()
+    {
+        return $this->work_position;
+    }
+
+    /**
+     * @param string $work_position
+     * @return Contact
+     */
+    public function setWorkPosition($work_position)
+    {
+        $this->work_position = $work_position;
+        return $this;
+    }
+
+    /**
      * @return array
      * @throws \Exception
      */
@@ -648,6 +696,15 @@ class Contact
 
         if (!empty($this->ip))
             $this->contact[self::VAR_IP] = $this->ip;
+
+        if (!empty($this->www))
+            $this->contact[self::VAR_WWW] = $this->www;
+
+        if (!empty($this->street))
+            $this->contact[self::VAR_STREET] = $this->street;
+
+        if (!empty($this->work_position))
+            $this->contact[self::VAR_WORK_POSITION] = $this->work_position;
 
         if (!empty($this->attribute)) {
             foreach ($this->attribute as $apiKey => $value) {
