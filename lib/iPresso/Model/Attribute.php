@@ -7,6 +7,7 @@ class Attribute
     const VAR_KEY = 'key';
     const VAR_NAME = 'name';
     const VAR_TYPE = 'type';
+    const VAR_OPTION = 'option';
 
     /**
      * ATTRIBUTE TYPES
@@ -37,10 +38,30 @@ class Attribute
         self::TYPE_TIME
     ];
 
+    /**
+     * @var array
+     */
     public $attribute;
+
+    /**
+     * @var string
+     */
     private $key;
+
+    /**
+     * @var string
+     */
     private $name;
+
+    /**
+     * @var string
+     */
     private $type;
+
+    /**
+     * @var array
+     */
+    private $option = [];
 
     /**
      * @return mixed
@@ -97,6 +118,35 @@ class Attribute
     }
 
     /**
+     * @param string $key
+     * @param string $value
+     * @return Attribute
+     */
+    public function addOption($key, $value)
+    {
+        $this->option[$key] = $value;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOption()
+    {
+        return $this->option;
+    }
+
+    /**
+     * @param array $option
+     * @return Attribute
+     */
+    public function setOption($option)
+    {
+        $this->option = $option;
+        return $this;
+    }
+
+    /**
      * @return mixed
      * @throws \Exception
      */
@@ -116,6 +166,9 @@ class Attribute
             throw new \Exception('Wrong attribute ' . self::VAR_TYPE);
 
         $this->attribute[self::VAR_TYPE] = $this->type;
+
+        if (!empty($this->option))
+            $this->attribute[self::VAR_OPTION] = $this->option;
 
         return $this->attribute;
     }
