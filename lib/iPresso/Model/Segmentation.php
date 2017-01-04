@@ -13,6 +13,7 @@ class Segmentation
     const VAR_NAME = 'name';
     const VAR_ORIGIN = 'contact_origin';
     const VAR_TYPE = 'contact_type';
+    const VAR_REFRESH = 'refresh';
 
     /**
      * @var array
@@ -43,6 +44,11 @@ class Segmentation
      * @var string
      */
     private $name;
+
+    /**
+     * @var boolean
+     */
+    private $refresh;
 
     /**
      * @var array
@@ -157,6 +163,24 @@ class Segmentation
     }
 
     /**
+     * @return bool
+     */
+    public function isRefresh()
+    {
+        return $this->refresh;
+    }
+
+    /**
+     * @param bool $refresh
+     * @return Segmentation
+     */
+    public function setRefresh($refresh)
+    {
+        $this->refresh = $refresh;
+        return $this;
+    }
+
+    /**
      * @return array
      * @throws \Exception
      */
@@ -202,6 +226,10 @@ class Segmentation
 
         if (!empty($this->contact_type)) {
             $this->segmentation[self::VAR_TYPE] = $this->contact_type;
+        }
+
+        if (!empty($this->refresh)) {
+            $this->segmentation[self::VAR_REFRESH] = $this->refresh;
         }
 
         return $this->segmentation;
