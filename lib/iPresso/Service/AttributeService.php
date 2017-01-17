@@ -23,7 +23,7 @@ class AttributeService
     /**
      * Add new attributes
      * @param Attribute $attribute
-     * @return bool|mixed
+     * @return bool|Response
      * @throws \Exception
      */
     public function add(Attribute $attribute)
@@ -38,7 +38,7 @@ class AttributeService
 
     /**
      * Get available attributes
-     * @return bool|mixed
+     * @return bool|Response
      */
     public function get()
     {
@@ -46,6 +46,21 @@ class AttributeService
             ->service
             ->setRequestPath('attribute')
             ->setRequestType(Service::REQUEST_METHOD_GET)
+            ->request();
+    }
+
+    /**
+     * Add new options to attribute
+     * @param Attribute $attribute
+     * @return bool|Response
+     */
+    public function addOption(Attribute $attribute)
+    {
+        return $this
+            ->service
+            ->setRequestPath('attribute/' . $attribute->getKey() . '/option')
+            ->setRequestType(Service::REQUEST_METHOD_POST)
+            ->setPostData($attribute->getAttribute(true))
             ->request();
     }
 }

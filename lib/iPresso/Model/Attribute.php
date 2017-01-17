@@ -147,12 +147,13 @@ class Attribute
     }
 
     /**
-     * @return mixed
+     * @param bool $edit
+     * @return array
      * @throws \Exception
      */
-    public function getAttribute()
+    public function getAttribute($edit = false)
     {
-        if (empty($this->name))
+        if (!$edit && empty($this->name))
             throw new \Exception('Wrong attribute ' . self::VAR_NAME);
 
         $this->attribute[self::VAR_NAME] = $this->name;
@@ -162,7 +163,7 @@ class Attribute
 
         $this->attribute[self::VAR_KEY] = $this->key;
 
-        if (empty($this->type) || !in_array($this->type, self::$attribute_types))
+        if (!$edit && (empty($this->type) || !in_array($this->type, self::$attribute_types)))
             throw new \Exception('Wrong attribute ' . self::VAR_TYPE);
 
         $this->attribute[self::VAR_TYPE] = $this->type;
