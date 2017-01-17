@@ -27,12 +27,6 @@ class Contact
     const VAR_WORK_POSITION = 'workPosition';
 
     /**
-     * @required * - one of the above fields must be sent
-     * @var array
-     */
-    public $contact = [];
-
-    /**
      * iPresso API null variable
      * @var string
      */
@@ -174,6 +168,11 @@ class Contact
      * @var string
      */
     private $work_position;
+
+    /**
+     * @var string
+     */
+    private $modify_date;
 
     /**
      * @param int $id_contact
@@ -641,78 +640,98 @@ class Contact
     }
 
     /**
+     * @return string
+     */
+    public function getModifyDate()
+    {
+        return $this->modify_date;
+    }
+
+    /**
+     * @param string $modify_date
+     * @return Contact
+     */
+    public function setModifyDate($modify_date)
+    {
+        $this->modify_date = $modify_date;
+        return $this;
+    }
+
+    /**
      * @return array
      * @throws \Exception
      */
     public function getContact()
     {
+        $contact = [];
+
         if (!empty($this->type))
-            $this->contact[self::VAR_TYPE] = $this->type;
+            $contact[self::VAR_TYPE] = $this->type;
 
         if (!empty($this->first_name))
-            $this->contact[self::VAR_FIRST_NAME] = $this->first_name;
+            $contact[self::VAR_FIRST_NAME] = $this->first_name;
 
         if (!empty($this->last_name))
-            $this->contact[self::VAR_LAST_NAME] = $this->last_name;
+            $contact[self::VAR_LAST_NAME] = $this->last_name;
 
         if (!empty($this->name))
-            $this->contact[self::VAR_NAME] = $this->name;
+            $contact[self::VAR_NAME] = $this->name;
 
         if (!empty($this->email))
-            $this->contact[self::VAR_EMAIL] = $this->email;
+            $contact[self::VAR_EMAIL] = $this->email;
 
         if (!empty($this->phone))
-            $this->contact[self::VAR_PHONE] = $this->phone;
+            $contact[self::VAR_PHONE] = $this->phone;
 
         if (!empty($this->mobile))
-            $this->contact[self::VAR_MOBILE] = $this->mobile;
+            $contact[self::VAR_MOBILE] = $this->mobile;
 
         if (!empty($this->company))
-            $this->contact[self::VAR_COMPANY] = $this->company;
+            $contact[self::VAR_COMPANY] = $this->company;
 
         if (!empty($this->city))
-            $this->contact[self::VAR_CITY] = $this->city;
+            $contact[self::VAR_CITY] = $this->city;
 
         if (!empty($this->post_code))
-            $this->contact[self::VAR_POST_CODE] = $this->post_code;
+            $contact[self::VAR_POST_CODE] = $this->post_code;
 
         if (!empty($this->flat_number))
-            $this->contact[self::VAR_FLAT_NUMBER] = $this->flat_number;
+            $contact[self::VAR_FLAT_NUMBER] = $this->flat_number;
 
         if (!empty($this->country))
-            $this->contact[self::VAR_COUNTRY] = $this->country;
+            $contact[self::VAR_COUNTRY] = $this->country;
 
         if (!empty($this->category))
-            $this->contact[self::VAR_CATEGORY] = $this->category;
+            $contact[self::VAR_CATEGORY] = $this->category;
 
         if (!empty($this->tag))
-            $this->contact[self::VAR_TAG] = $this->tag;
+            $contact[self::VAR_TAG] = $this->tag;
 
         if (!empty($this->agreement))
-            $this->contact[self::VAR_AGREEMENT] = $this->agreement;
+            $contact[self::VAR_AGREEMENT] = $this->agreement;
 
         if (!empty($this->origin))
-            $this->contact[self::VAR_ORIGIN] = $this->origin;
+            $contact[self::VAR_ORIGIN] = $this->origin;
 
         if (!empty($this->ip))
-            $this->contact[self::VAR_IP] = $this->ip;
+            $contact[self::VAR_IP] = $this->ip;
 
         if (!empty($this->www))
-            $this->contact[self::VAR_WWW] = $this->www;
+            $contact[self::VAR_WWW] = $this->www;
 
         if (!empty($this->street))
-            $this->contact[self::VAR_STREET] = $this->street;
+            $contact[self::VAR_STREET] = $this->street;
 
         if (!empty($this->work_position))
-            $this->contact[self::VAR_WORK_POSITION] = $this->work_position;
+            $contact[self::VAR_WORK_POSITION] = $this->work_position;
 
         if (!empty($this->attribute)) {
             foreach ($this->attribute as $apiKey => $value) {
-                $this->contact[$apiKey] = $value;
+                $contact[$apiKey] = $value;
             }
         }
 
-        return $this->contact;
+        return $contact;
     }
 
 }
