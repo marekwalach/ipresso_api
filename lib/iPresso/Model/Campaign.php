@@ -8,12 +8,34 @@ class Campaign
     const VAR_ID_CONTACT = 'contactId';
     const VAR_MOBILE = 'phone';
     const VAR_CONTENT = 'content';
+    const VAR_HASH = 'hash';
+    const VAR_TOKEN = 'token';
 
     public $campaign = [];
+    /**
+     * @var array
+     */
     private $content = [];
+    /**
+     * @var array
+     */
     private $email = [];
+    /**
+     * @var array
+     */
     private $id_contact = [];
+    /**
+     * @var array
+     */
     private $mobile = [];
+    /**
+     * @var array
+     */
+    private $hash = [];
+    /**
+     * @var array
+     */
+    private $token = [];
 
     /**
      * @return array
@@ -130,6 +152,62 @@ class Campaign
 
     /**
      * @return array
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    /**
+     * @param array $hash
+     * @return Campaign
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
+        return $this;
+    }
+
+    /**
+     * @param $hash
+     * @return Campaign
+     */
+    public function addHash($hash)
+    {
+        $this->hash[] = $hash;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param array $token
+     * @return Campaign
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+        return $this;
+    }
+
+    /**
+     * @param string $token
+     * @return Campaign
+     */
+    public function addToken($token)
+    {
+        $this->token[] = $token;
+        return $this;
+    }
+
+    /**
+     * @return array
      * @throws \Exception
      */
     public function getCampaign()
@@ -145,6 +223,12 @@ class Campaign
 
         if (!empty($this->mobile))
             $this->campaign[self::VAR_MOBILE] = $this->mobile;
+
+        if (!empty($this->hash))
+            $this->campaign[self::VAR_HASH] = $this->hash;
+
+        if (!empty($this->token))
+            $this->campaign[self::VAR_TOKEN] = $this->token;
 
         if (empty($this->campaign))
             throw new \Exception('No recipients in campaign');
