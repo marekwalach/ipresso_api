@@ -265,7 +265,7 @@ class Response
             98 => 'Contacts does not have web push token'
         ];
 
-        if (in_array($code, $error_codes)) {
+        if (isset($error_codes[$code])) {
             return $error_codes[$code];
         }
         return false;
