@@ -271,6 +271,27 @@ class ContactService
             ->request();
     }
 
+    /**
+     * Adding activities to a contact
+     * @param integer $idContact
+     * @param ContactActivity[] $contactActivities
+     * @return bool|Response
+     */
+    public function addActivities($idContact, $contactActivities)
+    {
+        $data = [];
+        foreach ($contactActivities as $contactActivity) {
+            if ($contactActivity instanceof ContactActivity)
+                $data['activity'][] = $contactActivity->getContactActivity();
+        }
+
+        return $this
+            ->service
+            ->setRequestPath('contact/' . $idContact . '/activity')
+            ->setRequestType(Service::REQUEST_METHOD_POST)
+            ->setPostData($data)
+            ->request();
+    }
 
     /**
      * Get available activities
