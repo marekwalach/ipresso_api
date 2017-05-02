@@ -3,8 +3,13 @@
 namespace iPresso\Service;
 
 use iPresso\Model\Campaign;
+use Itav\Component\Serializer\Serializer;
 
-class CampaignService
+/**
+ * Class CampaignService
+ * @package iPresso\Service
+ */
+class CampaignService implements ServiceInterface
 {
     /**
      * @var Service
@@ -12,12 +17,19 @@ class CampaignService
     private $service;
 
     /**
+     * @var Serializer
+     */
+    private $serializer;
+
+    /**
      * CampaignService constructor.
      * @param Service $service
+     * @param Serializer $serializer
      */
-    public function __construct(Service $service)
+    public function __construct(Service $service, Serializer $serializer)
     {
         $this->service = $service;
+        $this->serializer = $serializer;
     }
 
     /**

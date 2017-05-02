@@ -3,8 +3,13 @@
 namespace iPresso\Service;
 
 use iPresso\Model\Type;
+use Itav\Component\Serializer\Serializer;
 
-class TypeService
+/**
+ * Class TypeService
+ * @package iPresso\Service
+ */
+class TypeService implements ServiceInterface
 {
     /**
      * @var Service
@@ -12,12 +17,19 @@ class TypeService
     private $service;
 
     /**
+     * @var Serializer
+     */
+    private $serializer;
+
+    /**
      * TypeService constructor.
      * @param Service $service
+     * @param Serializer $serializer
      */
-    public function __construct(Service $service)
+    public function __construct(Service $service, Serializer $serializer)
     {
         $this->service = $service;
+        $this->serializer = $serializer;
     }
 
     /**

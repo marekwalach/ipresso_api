@@ -3,8 +3,13 @@
 namespace iPresso\Service;
 
 use iPresso\Model\Tag;
+use Itav\Component\Serializer\Serializer;
 
-class TagService
+/**
+ * Class TagService
+ * @package iPresso\Service
+ */
+class TagService implements ServiceInterface
 {
     /**
      * @var Service
@@ -12,12 +17,19 @@ class TagService
     private $service;
 
     /**
+     * @var Serializer
+     */
+    private $serializer;
+
+    /**
      * TagService constructor.
      * @param Service $service
+     * @param Serializer $serializer
      */
-    public function __construct(Service $service)
+    public function __construct(Service $service, Serializer $serializer)
     {
         $this->service = $service;
+        $this->serializer = $serializer;
     }
 
     /**

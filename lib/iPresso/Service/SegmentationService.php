@@ -3,8 +3,13 @@
 namespace iPresso\Service;
 
 use iPresso\Model\Segmentation;
+use Itav\Component\Serializer\Serializer;
 
-class SegmentationService
+/**
+ * Class SegmentationService
+ * @package iPresso\Service
+ */
+class SegmentationService implements ServiceInterface
 {
     /**
      * @var Service
@@ -12,12 +17,19 @@ class SegmentationService
     private $service;
 
     /**
-     * ActionService constructor.
-     * @param Service $service
+     * @var Serializer
      */
-    public function __construct(Service $service)
+    private $serializer;
+
+    /**
+     * SegmentationService constructor.
+     * @param Service $service
+     * @param Serializer $serializer
+     */
+    public function __construct(Service $service, Serializer $serializer)
     {
         $this->service = $service;
+        $this->serializer = $serializer;
     }
 
     /**

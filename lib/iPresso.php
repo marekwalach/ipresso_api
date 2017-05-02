@@ -14,7 +14,11 @@ use iPresso\Service\TagService;
 use iPresso\Service\TypeService;
 use iPresso\Service\WebsiteService;
 use iPresso\Service\Service;
+use Itav\Component\Serializer\Serializer;
 
+/**
+ * Class iPresso
+ */
 class iPresso
 {
     /**
@@ -88,24 +92,30 @@ class iPresso
     private $service;
 
     /**
+     * @var Serializer
+     */
+    private $serializer;
+
+    /**
      * iPresso constructor.
      */
     public function __construct()
     {
         $this->service = new Service();
-        $this->action = new ActionService($this->service);
-        $this->activity = new ActivityService($this->service);
-        $this->agreement = new AgreementService($this->service);
-        $this->attribute = new AttributeService($this->service);
-        $this->category = new CategoryService($this->service);
-        $this->campaign = new CampaignService($this->service);
-        $this->contact = new ContactService($this->service);
-        $this->search = new SearchService($this->service);
-        $this->segmentation = new SegmentationService($this->service);
-        $this->source = new SourceService($this->service);
-        $this->tag = new TagService($this->service);
-        $this->type = new TypeService($this->service);
-        $this->www = new WebsiteService($this->service);
+        $this->serializer = new Serializer();
+        $this->action = new ActionService($this->service, $this->serializer);
+        $this->activity = new ActivityService($this->service, $this->serializer);
+        $this->agreement = new AgreementService($this->service, $this->serializer);
+        $this->attribute = new AttributeService($this->service, $this->serializer);
+        $this->category = new CategoryService($this->service, $this->serializer);
+        $this->campaign = new CampaignService($this->service, $this->serializer);
+        $this->contact = new ContactService($this->service, $this->serializer);
+        $this->search = new SearchService($this->service, $this->serializer);
+        $this->segmentation = new SegmentationService($this->service, $this->serializer);
+        $this->source = new SourceService($this->service, $this->serializer);
+        $this->tag = new TagService($this->service, $this->serializer);
+        $this->type = new TypeService($this->service, $this->serializer);
+        $this->www = new WebsiteService($this->service, $this->serializer);
     }
 
     /**

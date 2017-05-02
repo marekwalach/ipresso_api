@@ -3,8 +3,13 @@
 namespace iPresso\Service;
 
 use iPresso\Model\Action;
+use Itav\Component\Serializer\Serializer;
 
-class ActionService
+/**
+ * Class ActionService
+ * @package iPresso\Service
+ */
+class ActionService implements ServiceInterface
 {
     /**
      * @var Service
@@ -12,12 +17,19 @@ class ActionService
     private $service;
 
     /**
+     * @var Serializer
+     */
+    private $serializer;
+
+    /**
      * ActionService constructor.
      * @param Service $service
+     * @param Serializer $serializer
      */
-    public function __construct(Service $service)
+    public function __construct(Service $service, Serializer $serializer)
     {
         $this->service = $service;
+        $this->serializer = $serializer;
     }
 
     /**

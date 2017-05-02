@@ -2,7 +2,13 @@
 
 namespace iPresso\Service;
 
-class WebsiteService
+use Itav\Component\Serializer\Serializer;
+
+/**
+ * Class WebsiteService
+ * @package iPresso\Service
+ */
+class WebsiteService implements ServiceInterface
 {
     /**
      * @var Service
@@ -10,12 +16,19 @@ class WebsiteService
     private $service;
 
     /**
+     * @var Serializer
+     */
+    private $serializer;
+
+    /**
      * WebsiteService constructor.
      * @param Service $service
+     * @param Serializer $serializer
      */
-    public function __construct(Service $service)
+    public function __construct(Service $service, Serializer $serializer)
     {
         $this->service = $service;
+        $this->serializer = $serializer;
     }
 
     /**

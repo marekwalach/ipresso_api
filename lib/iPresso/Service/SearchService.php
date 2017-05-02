@@ -3,8 +3,13 @@
 namespace iPresso\Service;
 
 use iPresso\Model\Search;
+use Itav\Component\Serializer\Serializer;
 
-class SearchService
+/**
+ * Class SearchService
+ * @package iPresso\Service
+ */
+class SearchService implements ServiceInterface
 {
     /**
      * @var Service
@@ -12,12 +17,19 @@ class SearchService
     private $service;
 
     /**
+     * @var Serializer
+     */
+    private $serializer;
+
+    /**
      * SearchService constructor.
      * @param Service $service
+     * @param Serializer $serializer
      */
-    public function __construct(Service $service)
+    public function __construct(Service $service, Serializer $serializer)
     {
         $this->service = $service;
+        $this->serializer = $serializer;
     }
 
     /**
