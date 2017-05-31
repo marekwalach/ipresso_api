@@ -262,7 +262,8 @@ class Response
             95 => 'Segmentation contact origin ID is wrong',
             96 => 'Segmentation was not created by API',
             97 => 'Voucher does not exists',
-            98 => 'Contacts does not have web push token'
+            98 => 'Contacts does not have web push token',
+            99 => 'Scenario key not exists',
         ];
 
         if (isset($error_codes[$code])) {

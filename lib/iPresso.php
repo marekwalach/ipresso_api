@@ -7,6 +7,7 @@ use iPresso\Service\AttributeService;
 use iPresso\Service\CategoryService;
 use iPresso\Service\CampaignService;
 use iPresso\Service\ContactService;
+use iPresso\Service\ScenarioService;
 use iPresso\Service\SearchService;
 use iPresso\Service\SegmentationService;
 use iPresso\Service\SourceService;
@@ -55,6 +56,11 @@ class iPresso
      * @var ContactService
      */
     public $contact;
+
+    /**
+     * @var ScenarioService
+     */
+    public $scenario;
 
     /**
      * @var SearchService
@@ -110,6 +116,7 @@ class iPresso
         $this->category = new CategoryService($this->service, $this->serializer);
         $this->campaign = new CampaignService($this->service, $this->serializer);
         $this->contact = new ContactService($this->service, $this->serializer);
+        $this->scenario = new ScenarioService($this->service, $this->serializer);
         $this->search = new SearchService($this->service, $this->serializer);
         $this->segmentation = new SegmentationService($this->service, $this->serializer);
         $this->source = new SourceService($this->service, $this->serializer);
